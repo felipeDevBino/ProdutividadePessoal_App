@@ -19,11 +19,11 @@ public class AtividadesNecessarias {
 
 	public static Map<String, StringBuilder> atividadesObrigatorias = new HashMap<String, StringBuilder>();
 	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
+	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
+	"muito dificil" };
 	public static List<Integer> horasOriginais = new ArrayList<Integer>(), horasMutaveis = new ArrayList<Integer>();
 	public static List<Integer> minutosOriginais = new ArrayList<Integer>(), minutosMutaveis = new ArrayList<Integer>();
 	public static List<Integer> segundosOriginais = new ArrayList<Integer>(), segundosMutaveis = new ArrayList<Integer>();
-	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
-			"muito dificil" };
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void defineAsAtividades() {

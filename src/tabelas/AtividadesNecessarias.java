@@ -17,8 +17,11 @@ import java.util.List;
 
 public class AtividadesNecessarias {
 
-	protected static Map<String, Double> atividadesObrigatorias = new HashMap<String, Double>();
-	protected static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
+	public static Map<String, StringBuilder> atividadesObrigatorias = new HashMap<String, StringBuilder>();
+	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
+	public static List<Integer> horasOriginais = new ArrayList<Integer>(), horasMutaveis = new ArrayList<Integer>();
+	public static List<Integer> minutosOriginais = new ArrayList<Integer>(), minutosMutaveis = new ArrayList<Integer>();
+	public static List<Integer> segundosOriginais = new ArrayList<Integer>(), segundosMutaveis = new ArrayList<Integer>();
 	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
 			"muito dificil" };
 	static Scanner scanner = new Scanner(System.in);
@@ -36,31 +39,72 @@ public class AtividadesNecessarias {
 			System.out.println(condicional);
 		} while (quantidadeDeAtividades <= 0);
 
+		String atividade;
+		int hora;
+		int minuto;
+		int segundo;
 		for (int i = 0; i < quantidadeDeAtividades - 1; i++) {
-			System.out.println("\nDigite a " + (i + 1) + " atividade: ");
-			String atividade = Entretenimentos.scanner.nextLine();
-			
-			System.out.println("\nDigite o tempo que você leva para concluir esta atividade: ");
-			Double tempo = Double.parseDouble(Entretenimentos.scanner.nextLine());
-			
-			System.out.println("\nDigite o nível de dificuldade que você classifica essa atividade: (muito fácil, fácil, intermediário, difícil, muito difícil)");
-			String dificuldade = AtividadesNecessarias.scanner.nextLine();
+			do {
+				System.out.println("\nDigite a " + (i + 1) + " atividade: ");
+				atividade = Entretenimentos.scanner.nextLine();
 
-			AtividadesNecessarias.atividadesObrigatorias.put(atividade, tempo);
+				System.out.println("\nDigite o tempo que você leva para concluir esta atividade:" + "\n(horas):");
+				hora = Integer.parseInt(Entretenimentos.scanner.nextLine());
+				System.out.println("\n(minutos):");
+				minuto = Integer.parseInt(Entretenimentos.scanner.nextLine());
+				System.out.println("\n(segundos):");
+				segundo = Integer.parseInt(Entretenimentos.scanner.nextLine());
+				if (atividade == null) {
+					System.out.println("\nERRO! Não há nenhuma informação para a atividade!");
+				}
+				if (hora <= 0 && minuto <= 0 && segundo <= 0) {
+					System.out.println("\nERRO! Minutagem inválida! Digite valores superiores a zero para o tempo!");
+				}
+			} while (atividade == null || hora <= 0 && minuto <= 0 && segundo <= 0);
+
+			AtividadesNecessarias.horasOriginais.add(hora);
+			AtividadesNecessarias.minutosOriginais.add(minuto);
+			AtividadesNecessarias.segundosOriginais.add(segundo);
+			
+			AtividadesNecessarias.horasMutaveis.add(hora);
+			AtividadesNecessarias.minutosMutaveis.add(minuto);
+			AtividadesNecessarias.segundosMutaveis.add(segundo);
+			
+			StringBuilder minutagem = new StringBuilder();
+			minutagem.append(horasMutaveis.get(i) + "H - " + minutosMutaveis.get(i) + "M - " + segundosMutaveis.get(i) + "S.");
+
+			String dificuldade;
+			do {
+				System.out.println(
+						"\nDigite o nível de dificuldade que você classifica essa atividade: (muito fácil, fácil, intermediário, difícil, muito difícil)");
+				dificuldade = AtividadesNecessarias.scanner.nextLine();
+
+				if (!dificuldade.equals("muito fácil") && !dificuldade.equals("fácil")
+						&& !dificuldade.equals("intermediário") && !dificuldade.equals("difícil")
+						&& !dificuldade.equals("muito difícil")) {
+					System.out.println("\nNível de dificuldade inválido! Insira alguma das dificuldades disponíveis.");
+
+				}
+			} while (!dificuldade.equals("muito fácil") && !dificuldade.equals("fácil")
+					&& !dificuldade.equals("intermediário") && !dificuldade.equals("difícil")
+					&& !dificuldade.equals("muito difícil"));
+
+			AtividadesNecessarias.atividadesObrigatorias.put(atividade, minutagem);
 			AtividadesNecessarias.dificuldadeDeCadaAtividade.add(dificuldade);
 		}
 
 	}
-	
+
 	public static void mostraTodasAsAtividades() {
 		int contador = 0;
 		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			for (Double tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
-				System.out.println("\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Disponível: " + tempoDisponivel + ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
+			for (StringBuilder tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
+				System.out.println(
+						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Disponível: " + tempoDisponivel
+								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
 				contador++;
 			}
 		}
 	}
-
 
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Entretenimentos {
 
-	protected static Map<String, Integer> entretenimentos = new HashMap<String, Integer>();
+	public static Map<String, StringBuilder> entretenimentos = new HashMap<String, StringBuilder>();
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void defineOsEntretenimentos() {
@@ -22,11 +22,12 @@ public class Entretenimentos {
 			System.out.println(condicional);
 		} while (quantidadeDeEntretenimentos <= 0);
 
+		StringBuilder tempos = new StringBuilder();
+		tempos.append(0 + "H: " + 0 + "M: " + 0 + "S.");
 		for (int i = 0; i < quantidadeDeEntretenimentos - 1; i++) {
 			System.out.println("\nDigite o " + (i + 1) + " entretenimento: ");
 			String atividade = Entretenimentos.scanner.nextLine();
-
-			Entretenimentos.entretenimentos.put(atividade, 0);
+			Entretenimentos.entretenimentos.put(atividade, tempos);
 		}
 
 	}
@@ -34,7 +35,7 @@ public class Entretenimentos {
 	public static void mostraTodosOsEntretenimentos() {
 		int contador = 0;
 		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-			for (Integer tempoDisponivel : Entretenimentos.entretenimentos.values()) {
+			for (StringBuilder tempoDisponivel : Entretenimentos.entretenimentos.values()) {
 				System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento + ", Tempo Disponível: " + tempoDisponivel);
 				contador++;
 			}

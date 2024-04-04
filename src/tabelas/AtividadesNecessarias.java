@@ -17,14 +17,15 @@ import java.util.List;
 
 public class AtividadesNecessarias {
 
-	public static Map<String, StringBuilder> atividadesObrigatorias = new HashMap<String, StringBuilder>();
+	static Scanner scanner = new Scanner(System.in);
+	public static Map<String, String> atividadesObrigatorias = new HashMap<String, String>();
 	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
 	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
-	"muito dificil" };
+			"muito dificil" };
 	public static List<Integer> horasOriginais = new ArrayList<Integer>(), horasMutaveis = new ArrayList<Integer>();
 	public static List<Integer> minutosOriginais = new ArrayList<Integer>(), minutosMutaveis = new ArrayList<Integer>();
 	public static List<Integer> segundosOriginais = new ArrayList<Integer>(), segundosMutaveis = new ArrayList<Integer>();
-	static Scanner scanner = new Scanner(System.in);
+	public static String atividade;
 
 	public static void defineAsAtividades() {
 		int quantidadeDeAtividades;
@@ -48,12 +49,15 @@ public class AtividadesNecessarias {
 				System.out.println("\nDigite a " + (i + 1) + " atividade: ");
 				atividade = Entretenimentos.scanner.nextLine();
 
-				System.out.println("\nDigite o tempo que você leva para concluir esta atividade:" + "\n(horas):");
+				System.out.println("\nDigite o tempo que você leva para concluir esta atividade:");
+
+				System.out.println("\n(horas):");
 				hora = Integer.parseInt(Entretenimentos.scanner.nextLine());
 				System.out.println("\n(minutos):");
 				minuto = Integer.parseInt(Entretenimentos.scanner.nextLine());
 				System.out.println("\n(segundos):");
 				segundo = Integer.parseInt(Entretenimentos.scanner.nextLine());
+
 				if (atividade == null) {
 					System.out.println("\nERRO! Não há nenhuma informação para a atividade!");
 				}
@@ -65,13 +69,14 @@ public class AtividadesNecessarias {
 			AtividadesNecessarias.horasOriginais.add(hora);
 			AtividadesNecessarias.minutosOriginais.add(minuto);
 			AtividadesNecessarias.segundosOriginais.add(segundo);
-			
+
 			AtividadesNecessarias.horasMutaveis.add(hora);
 			AtividadesNecessarias.minutosMutaveis.add(minuto);
 			AtividadesNecessarias.segundosMutaveis.add(segundo);
-			
-			StringBuilder minutagem = new StringBuilder();
-			minutagem.append(horasMutaveis.get(i) + "H - " + minutosMutaveis.get(i) + "M - " + segundosMutaveis.get(i) + "S.");
+
+			String minutagem;
+			minutagem = (horasMutaveis.get(i) + "H - " + minutosMutaveis.get(i) + "M - " + segundosMutaveis.get(i)
+					+ "S.");
 
 			String dificuldade;
 			do {
@@ -95,12 +100,28 @@ public class AtividadesNecessarias {
 
 	}
 
-	public static void mostraTodasAsAtividades() {
+	public static void getAtividade() {
+		System.out.println("\nDigite o número da atividade:");
+		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
+		int contador = 1;
+		for (String buscaAtividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
+			if (contador == numeroDaAtividade) {
+				System.out.println("\nAtividade encontrada! (" + (contador) + "): " + buscaAtividade
+						+ ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(buscaAtividade)
+						+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
+				AtividadesNecessarias.atividade = buscaAtividade;
+				break;
+			}
+			contador++;
+		}
+	}
+
+	public static void getTodasAsAtividades() {
 		int contador = 0;
 		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			for (StringBuilder tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
+			for (String tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
 				System.out.println(
-						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Disponível: " + tempoDisponivel
+						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + tempoDisponivel
 								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
 				contador++;
 			}

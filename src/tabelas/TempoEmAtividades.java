@@ -13,8 +13,7 @@ import java.util.Scanner;
 public class TempoEmAtividades {
 
 	static Scanner scanner = new Scanner(System.in);
-	static int atividadesConcluidasNoDia = AtividadesNecessarias.atividadesObrigatorias.size();
-	public static String atividade;
+	static int atividadesConcluidasNoDia;
 	public static Integer horasAcumuladas = 0;
 	public static Integer minutosAcumulados = 0;
 	public static Integer segundosAcumulados = 0;
@@ -23,34 +22,20 @@ public class TempoEmAtividades {
 
 		int contador = 0;
 		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			StringBuilder restauraHorario = new StringBuilder();
-			restauraHorario.append(AtividadesNecessarias.horasOriginais.get(contador) + "H : "
+			String restauraHorario;
+			restauraHorario = (AtividadesNecessarias.horasOriginais.get(contador) + "H : "
 					+ AtividadesNecessarias.minutosOriginais.get(contador) + "M : "
 					+ AtividadesNecessarias.segundosOriginais.get(contador) + "S.");
 			
-			AtividadesNecessarias.atividadesObrigatorias.get(atividade).delete(0,
-					AtividadesNecessarias.atividadesObrigatorias.get(atividade).length());
-			AtividadesNecessarias.atividadesObrigatorias.put(atividade, restauraHorario);
-
+			AtividadesNecessarias.atividadesObrigatorias.replace(AtividadesNecessarias.atividadesObrigatorias.get(atividade), restauraHorario);
+			
 		}
 
 		System.out.println("\nAtividades reiniciadas com sucesso.");
 
 	}
 
-	public static void escolheAtividade() {
-		System.out.println("\nDigite o número da atividade:");
-		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
-		int contador = 1;
-		for (String buscaAtividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			if (contador == numeroDaAtividade) {
-				System.out.println("\nAtividade encontrada! " + buscaAtividade);
-				TempoEmAtividades.atividade = buscaAtividade;
-				break;
-			}
-			contador++;
-		}
-	}
+
 
 	// INTERFACE PARA DECREMENTAR OS TEMPOS DAS ATIVIDADES
 	public static void tempoDecorridoEmAtividades(Integer hora, Integer minuto, Integer segundo) {
@@ -75,25 +60,21 @@ public class TempoEmAtividades {
 			AtividadesNecessarias.segundosMutaveis.remove(contador);
 			AtividadesNecessarias.segundosMutaveis.add(minutoMutavel);
 
-			if (TempoEmAtividades.atividade.equals(atividadeAtual)) {
+			if (AtividadesNecessarias.atividade.equals(atividadeAtual)) {
 				// DECREMENTA O TEMPO NECESSÁRIO PARA CONCLUIR A ATIVIDADE MENCIONADA EM
 				// 'atividade'
-				StringBuilder decremento = new StringBuilder();
-				decremento.append(horaMutavel + "H - " + minutoMutavel + "M - " + segundoMutavel + "S.");
+				String decremento;
+				decremento = (horaMutavel + "H : " + minutoMutavel + "M : " + segundoMutavel + "S.");
 				
-				AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual).delete(0,
-						AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual).length());
-				AtividadesNecessarias.atividadesObrigatorias.put(atividadeAtual, decremento);
+				AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual).replace(AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual), decremento);
 
-				AtividadesNecessarias.atividadesObrigatorias.put(TempoEmAtividades.atividade,
-						AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual));
 			} else {
 				System.out.println("\nTempo passado/decrementado com sucesso.");
 				TempoEmAtividades.atividadesConcluidasNoDia--;
 
-				StringBuilder condicaoDeAtividadeConcluida = new StringBuilder();
-				condicaoDeAtividadeConcluida.append(0 + "H - " + 0 + "M - " + 0 + "S.");
-				if (AtividadesNecessarias.atividadesObrigatorias.get(TempoEmAtividades.atividade)
+				String condicaoDeAtividadeConcluida;
+				condicaoDeAtividadeConcluida = (0 + "H : " + 0 + "M : " + 0 + "S.");
+				if (AtividadesNecessarias.atividadesObrigatorias.get(AtividadesNecessarias.atividade)
 						.equals(condicaoDeAtividadeConcluida)) {
 					System.out.println("\nAtividade: " + atividadeAtual + " concluída com sucesso.");
 
@@ -115,7 +96,7 @@ public class TempoEmAtividades {
 						TempoEmAtividades.segundosAcumulados += 59;
 
 					} else if (AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador).equals("muito difífil")) {
-						TempoEmAtividades.minutosAcumulados += 2;
+						TempoEmAtividades.horasAcumuladas += 2;
 						TempoEmAtividades.minutosAcumulados += 30;
 						TempoEmAtividades.segundosAcumulados += 59;
 

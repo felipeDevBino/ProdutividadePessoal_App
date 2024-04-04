@@ -31,18 +31,18 @@ public class TempoEmEntretenimentos {
 		} else {
 			System.out.println(
 					"\nDigite o número do entretenimento para o qual você deseja adicionar tempo disponível: ");
-			String entretenimentoEscolhido = scanner.nextLine();
+			int entretenimentoEscolhido = Integer.parseInt(scanner.nextLine());
 
 			int contador = 0;
 			for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-				if (entretenimentoEscolhido.equals(entretenimento)) {
+				if (contador == entretenimentoEscolhido) {
 
 					int incrementaHora = Entretenimentos.horas.get(contador);
 					incrementaHora += hora;
 					int incrementaMinuto = Entretenimentos.minutos.get(contador);
-					incrementaMinuto -= minuto;
+					incrementaMinuto += minuto;
 					int incrementaSegundo = Entretenimentos.segundos.get(contador);
-					incrementaSegundo -= segundo;
+					incrementaSegundo += segundo;
 
 					Entretenimentos.horas.remove(contador);
 					Entretenimentos.horas.add(contador, incrementaHora);
@@ -53,9 +53,12 @@ public class TempoEmEntretenimentos {
 					Entretenimentos.segundos.remove(contador);
 					Entretenimentos.segundos.add(contador, incrementaSegundo);
 
-//					Stringbuilder
-					
-				} else {
+					String atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
+							+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)
+							+ "S.");
+					Entretenimentos.entretenimentos.remove(entretenimento);
+					Entretenimentos.entretenimentos.put(entretenimento, atualizaTempo);
+
 					System.out.println("\nTempo adicionado/incrementado com sucesso.");
 				}
 				contador++;
@@ -63,8 +66,7 @@ public class TempoEmEntretenimentos {
 		}
 	}
 
-	public static void tempoDecorridoEmEntretenimentos(String passatempo, Integer hora, Integer minuto,
-			Integer segundo) {
+	public static void tempoDecorridoEmEntretenimentos(Integer hora, Integer minuto, Integer segundo) {
 		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
 			throw new IllegalArgumentException(
 					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
@@ -74,7 +76,7 @@ public class TempoEmEntretenimentos {
 		}
 		int contador = 0;
 		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-			if (passatempo.equals(entretenimento)) {
+			if (Entretenimentos.entretenimento.equals(entretenimento)) {
 
 				int decrementaHora = Entretenimentos.horas.get(contador);
 				decrementaHora -= hora;
@@ -92,15 +94,19 @@ public class TempoEmEntretenimentos {
 				Entretenimentos.segundos.remove(contador);
 				Entretenimentos.segundos.add(contador, decrementaSegundo);
 
-//				Stringbuilder
-				
-			} else {
+				String atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
+						+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)
+						+ "S.");
+				Entretenimentos.entretenimentos.remove(entretenimento);
+				Entretenimentos.entretenimentos.put(entretenimento, atualizaTempo);
+
 				System.out.println("\nTempo passado/decrementado com sucesso.");
-				StringBuilder condicaoParaAcabar = new StringBuilder();
-				condicaoParaAcabar.append(0 + "H - " + 0 + "M - " + 0 + "S.");
+				String condicaoParaAcabar;
+				condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
 				if (Entretenimentos.entretenimentos.get(entretenimento).equals(condicaoParaAcabar)) {
 					System.out.println("\nO tempo disponível para o entretenimento: " + entretenimento + " acabou!");
 				}
+
 			}
 			contador++;
 		}

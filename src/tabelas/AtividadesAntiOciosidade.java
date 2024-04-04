@@ -1,8 +1,11 @@
 package tabelas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 /*
  * Serão atividades opcionais que o usuário poderá realizar como bônus de tempo
@@ -13,20 +16,52 @@ import java.util.Random;
 
 public class AtividadesAntiOciosidade implements Runnable {
 
-	protected static Map<String, StringBuilder> atividadesAntiOciosidade = new HashMap<String, StringBuilder>();
+	static Scanner scanner = new Scanner(System.in);
+	public static Map<String, String> atividadesAntiOciosidade = new HashMap<String, String>();
 	private String[] atividades = new String[] { "Ler um livro", "Fazer uma caminhada", "Jogar um quebra cabeça",
 			"Assistir a um documentário", "Estudar um tema de preferência", "Fazer um desenho", "Arrumar o quarto",
 			"Resolva cálculos", "Medite", "Escute um podcast informativo" };
+	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
+			"muito dificil" };
+	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
 	private double[] tempos = new double[] { 10, 15, 20, 25, 30 };
 	protected static String atividade;
 
-	public void defineAtividadesAntiOciosidade() {
-		for (int i = 0; i < atividades.length; i++) {													//STRINGBUILDER COM VALORES RANDOMIZADOS
-			StringBuilder tempo = new StringBuilder();
-			tempo.append(0 + "H - " + tempos[randomizaMinutos()] + "M - " + 0 + "S.");
-			AtividadesAntiOciosidade.atividadesAntiOciosidade.put(randomizaAtividadeAntiOciosidade(), tempo);
+	public void defineAtividadeAntiOciosidade() {
+		String tempo;
+		tempo = (0 + "H : " + tempos[randomizaTempos()] + "M : " + 0 + "S.");
+		AtividadesAntiOciosidade.atividadesAntiOciosidade.put(randomizaAtividadeAntiOciosidade(), tempo);
+		AtividadesAntiOciosidade.dificuldadeDeCadaAtividade
+				.add(AtividadesAntiOciosidade.niveisDeDificuldade[randomizaDificuldade()]);
+
+	}
+
+	public String getAtividade() {
+		System.out.println("\nDigite o número da atividade:");
+		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
+		int contador = 1;
+		for (String buscaAtividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+			if (contador == numeroDaAtividade) {
+				System.out.println("\nAtividade encontrada! " + buscaAtividade);
+				AtividadesAntiOciosidade.atividade = buscaAtividade;
+				break;
+			}
+			contador++;
 		}
-		
+		return AtividadesAntiOciosidade.atividade;
+
+	}
+
+	public static void getTodasAsAtividades() {
+		int contador = 0;
+		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+			for (String tempoDisponivel : AtividadesAntiOciosidade.atividadesAntiOciosidade.values()) {
+				System.out.println(
+						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + tempoDisponivel
+								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
+				contador++;
+			}
+		}
 	}
 
 	public String randomizaAtividadeAntiOciosidade() {
@@ -66,13 +101,26 @@ public class AtividadesAntiOciosidade implements Runnable {
 		}
 		return AtividadesAntiOciosidade.atividade;
 	}
-	
-	public void tempoDecorridoEmAtividadesAntiOciosidade() {
-		//TODO
+
+	public void tempoDecorridoEmAtividadesAntiOciosidade(Integer hora, Integer minuto, Integer segundo) {
+		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
+			throw new IllegalArgumentException(
+					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
+		}
+		if (hora == 0 && minuto == 0 && segundo == 0) {
+			System.out.println("\nTempo inválido!");
+		}
+
+		for (String atividadeOpcional : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesAntiOciosidade.atividade.equals(atividadeOpcional)) {
+				// TODO
+			}
+		}
+
 	}
 
-	//Hora, Minuto e Segundo do array tempos
-	public int randomizaMinutos() {
+	// Hora, Minuto e Segundo do array tempos
+	public int randomizaTempos() {
 		Random random = new Random();
 		int tempoRandomizado = random.nextInt(5);
 		return tempoRandomizado;

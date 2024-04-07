@@ -2,6 +2,8 @@ package tabelas;
 
 import java.util.Scanner;
 
+import executar.Start;
+
 /*
  * Iniciará com um tempo pré-determinado para cada atividade selecionada pelo próprio usuário
  * e a medida que forem terminadas ou terem seu tempo reduzido (sendo informadas pelo usuário) 
@@ -34,48 +36,43 @@ public class TempoEmAtividades {
 		System.out.println("\nAtividades reiniciadas com sucesso.");
 
 	}
-
-
-
-	// INTERFACE PARA DECREMENTAR OS TEMPOS DAS ATIVIDADES
+				//RETORNA STRING COM OS VALORES ATUALIZADOS
 	public static void tempoDecorridoEmAtividades(Integer hora, Integer minuto, Integer segundo) {
 		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
 			throw new IllegalArgumentException(
 					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
 		}
 		int contador = 0;
-		for (String atividadeAtual : Entretenimentos.entretenimentos.keySet()) {
-			int horaMutavel = AtividadesNecessarias.horasMutaveis.get(contador);
-			horaMutavel -= hora;
-			AtividadesNecessarias.horasMutaveis.remove(contador);
-			AtividadesNecessarias.horasMutaveis.add(horaMutavel);
-
-			int minutoMutavel = AtividadesNecessarias.minutosMutaveis.get(contador);
-			minutoMutavel -= minuto;
-			AtividadesNecessarias.minutosMutaveis.remove(contador);
-			AtividadesNecessarias.minutosMutaveis.add(minutoMutavel);
-
-			int segundoMutavel = AtividadesNecessarias.segundosMutaveis.get(contador);
-			segundoMutavel -= segundo;
-			AtividadesNecessarias.segundosMutaveis.remove(contador);
-			AtividadesNecessarias.segundosMutaveis.add(minutoMutavel);
-
+		for (String atividadeAtual : AtividadesNecessarias.atividadesObrigatorias.keySet()) {	
 			if (AtividadesNecessarias.atividade.equals(atividadeAtual)) {
-				// DECREMENTA O TEMPO NECESSÁRIO PARA CONCLUIR A ATIVIDADE MENCIONADA EM
-				// 'atividade'
+				
+				int horaMutavel = AtividadesNecessarias.horasMutaveis.get(contador);
+				horaMutavel -= hora;
+				AtividadesNecessarias.horasMutaveis.remove(contador);
+				AtividadesNecessarias.horasMutaveis.add(horaMutavel);
+
+				int minutoMutavel = AtividadesNecessarias.minutosMutaveis.get(contador);
+				minutoMutavel -= minuto;
+				AtividadesNecessarias.minutosMutaveis.remove(contador);
+				AtividadesNecessarias.minutosMutaveis.add(minutoMutavel);
+
+				int segundoMutavel = AtividadesNecessarias.segundosMutaveis.get(contador);
+				segundoMutavel -= segundo;
+				AtividadesNecessarias.segundosMutaveis.remove(contador);
+				AtividadesNecessarias.segundosMutaveis.add(minutoMutavel);
+				
 				String decremento;
 				decremento = (horaMutavel + "H : " + minutoMutavel + "M : " + segundoMutavel + "S.");
 				
-				AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual).replace(AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual), decremento);
-
-			} else {
+				AtividadesNecessarias.atividadesObrigatorias.replace(AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual), decremento);
+								
 				System.out.println("\nTempo passado/decrementado com sucesso.");
 				TempoEmAtividades.atividadesConcluidasNoDia--;
-
-				String condicaoDeAtividadeConcluida;
-				condicaoDeAtividadeConcluida = (0 + "H : " + 0 + "M : " + 0 + "S.");
-				if (AtividadesNecessarias.atividadesObrigatorias.get(AtividadesNecessarias.atividade)
-						.equals(condicaoDeAtividadeConcluida)) {
+				String condicaoParaAcabar;
+				condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
+				if (AtividadesNecessarias.atividadesObrigatorias.get(atividadeAtual).equals(condicaoParaAcabar)) {
+					System.out.println("\nO tempo restante para concluir a atividade: " + atividadeAtual + " acabou!");
+		
 					System.out.println("\nAtividade: " + atividadeAtual + " concluída com sucesso.");
 
 					if (AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador).equals("muito fácil")) {
@@ -101,6 +98,7 @@ public class TempoEmAtividades {
 						TempoEmAtividades.segundosAcumulados += 59;
 
 					}
+				
 				}
 			}
 			contador++;
@@ -110,6 +108,7 @@ public class TempoEmAtividades {
 	public static void verificaAtividadesPendentes() {
 		if (TempoEmAtividades.atividadesConcluidasNoDia == 0) {
 			System.out.println("\nTodas as atividades foram concluídas! Parabéns por essa conquista!");
+			Start.terminou = true;
 			return;
 		}
 	}

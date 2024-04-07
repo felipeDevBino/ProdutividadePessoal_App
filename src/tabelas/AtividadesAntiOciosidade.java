@@ -21,24 +21,38 @@ public class AtividadesAntiOciosidade implements Runnable {
 	private String[] atividades = new String[] { "Ler um livro", "Fazer uma caminhada", "Jogar um quebra cabeça",
 			"Assistir a um documentário", "Estudar um tema de preferência", "Fazer um desenho", "Arrumar o quarto",
 			"Resolva cálculos", "Medite", "Escute um podcast informativo" };
-	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
-			"muito dificil" };
-	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
-	private double[] tempos = new double[] { 10, 15, 20, 25, 30 };
-	protected static String atividade;
+	private int[] tempos = new int[] { 10, 15, 20, 25, 30 };
+	// LÓGICA ALÉM DOS MINUTOS
+	public static List<Integer> horas = new ArrayList<Integer>();
+	public static List<Integer> minutos = new ArrayList<Integer>();
+	public static List<Integer> segundos = new ArrayList<Integer>();
+	public static String atividade;
+	public static int contador = 0;
 
-	public void defineAtividadeAntiOciosidade() {
+	public static String defineAtividadeAntiOciosidade() {
+		AtividadesAntiOciosidade atividadesOpcionais = new AtividadesAntiOciosidade();
 		String tempo;
-		tempo = (0 + "H : " + tempos[randomizaTempos()] + "M : " + 0 + "S.");
-		AtividadesAntiOciosidade.atividadesAntiOciosidade.put(randomizaAtividadeAntiOciosidade(), tempo);
-		AtividadesAntiOciosidade.dificuldadeDeCadaAtividade
-				.add(AtividadesAntiOciosidade.niveisDeDificuldade[randomizaDificuldade()]);
+		tempo = (0 + "H : " + atividadesOpcionais.tempos[atividadesOpcionais.randomizaMinutos()] + "M : " + 0 + "S.");
+		AtividadesAntiOciosidade.atividadesAntiOciosidade.put(atividadesOpcionais.randomizaAtividadeAntiOciosidade(),
+				tempo);
 
+		AtividadesAntiOciosidade.contador++;
+		return AtividadesAntiOciosidade.atividade;
 	}
 
 	public String getAtividade() {
-		System.out.println("\nDigite o número da atividade:");
-		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
+		boolean formatoInvalido = false;
+		int numeroDaAtividade = 0;
+		do {
+			try {
+				System.out.println("\nDigite o número da atividade:");
+				numeroDaAtividade = Integer.parseInt(scanner.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("\nNúmero inválido! Digite um número inteiro válido.");
+				formatoInvalido = true;
+			}
+		} while (formatoInvalido || numeroDaAtividade <= 0
+				|| numeroDaAtividade > AtividadesAntiOciosidade.atividadesAntiOciosidade.size());
 		int contador = 1;
 		for (String buscaAtividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
 			if (contador == numeroDaAtividade) {
@@ -56,9 +70,8 @@ public class AtividadesAntiOciosidade implements Runnable {
 		int contador = 0;
 		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
 			for (String tempoDisponivel : AtividadesAntiOciosidade.atividadesAntiOciosidade.values()) {
-				System.out.println(
-						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + tempoDisponivel
-								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
+				System.out.println("\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: "
+						+ tempoDisponivel + ".");
 				contador++;
 			}
 		}
@@ -66,70 +79,95 @@ public class AtividadesAntiOciosidade implements Runnable {
 
 	public String randomizaAtividadeAntiOciosidade() {
 		Random random = new Random();
-		int randomizaAtividade = random.nextInt(AtividadesAntiOciosidade.atividadesAntiOciosidade.size());
+		int randomizaAtividade = random.nextInt(11) + 1;
 		switch (randomizaAtividade) {
-		case 0:
+		case 1:
 			AtividadesAntiOciosidade.atividade = atividades[0];
 			break;
-		case 1:
+		case 2:
 			AtividadesAntiOciosidade.atividade = atividades[1];
 			break;
-		case 2:
+		case 3:
 			AtividadesAntiOciosidade.atividade = atividades[2];
 			break;
-		case 3:
+		case 4:
 			AtividadesAntiOciosidade.atividade = atividades[3];
 			break;
-		case 4:
+		case 5:
 			AtividadesAntiOciosidade.atividade = atividades[4];
 			break;
-		case 5:
+		case 6:
 			AtividadesAntiOciosidade.atividade = atividades[5];
 			break;
-		case 6:
+		case 7:
 			AtividadesAntiOciosidade.atividade = atividades[6];
 			break;
-		case 7:
+		case 8:
 			AtividadesAntiOciosidade.atividade = atividades[7];
 			break;
-		case 8:
+		case 10:
 			AtividadesAntiOciosidade.atividade = atividades[8];
 			break;
-		case 9:
+		case 11:
 			AtividadesAntiOciosidade.atividade = atividades[9];
 			break;
 		}
 		return AtividadesAntiOciosidade.atividade;
 	}
 
-	public void tempoDecorridoEmAtividadesAntiOciosidade(Integer hora, Integer minuto, Integer segundo) {
+	public static void tempoDecorridoEmAtividadesAntiOciosidade(Integer hora, Integer minuto, Integer segundo) {
 		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
 			throw new IllegalArgumentException(
 					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
 		}
-		if (hora == 0 && minuto == 0 && segundo == 0) {
-			System.out.println("\nTempo inválido!");
-		}
-
+		int contador = 0;
 		for (String atividadeOpcional : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
 			if (AtividadesAntiOciosidade.atividade.equals(atividadeOpcional)) {
-				// TODO
+
+				int decrementaHora = AtividadesAntiOciosidade.horas.get(contador);
+				decrementaHora -= minuto;
+
+				int decrementaMinuto = AtividadesAntiOciosidade.minutos.get(contador);
+				decrementaMinuto -= minuto;
+
+				int decrementaSegundo = AtividadesAntiOciosidade.segundos.get(contador);
+				decrementaSegundo -= segundo;
+
+				AtividadesAntiOciosidade.horas.remove(contador);
+				AtividadesAntiOciosidade.horas.add(contador, decrementaHora);
+
+				AtividadesAntiOciosidade.minutos.remove(contador);
+				AtividadesAntiOciosidade.minutos.add(contador, decrementaMinuto);
+
+				AtividadesAntiOciosidade.segundos.remove(contador);
+				AtividadesAntiOciosidade.segundos.add(contador, decrementaSegundo);
+
+				String atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
+						+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)
+						+ "S.");
+				AtividadesAntiOciosidade.atividadesAntiOciosidade.remove(atividadeOpcional);
+				AtividadesAntiOciosidade.atividadesAntiOciosidade.put(atividadeOpcional, atualizaTempo);
+
+				System.out.println("\nTempo passado/decrementado com sucesso.");
+				String condicaoParaAcabar;
+				condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
+				if (AtividadesAntiOciosidade.atividadesAntiOciosidade.get(atividadeOpcional)
+						.equals(condicaoParaAcabar)) {
+					System.out.println(
+							"\nO tempo restante para concluir a atividade opcional: " + atividadeOpcional + " acabou!");
+				}
+
 			}
+			contador++;
 		}
 
 	}
 
-	// Hora, Minuto e Segundo do array tempos
-	public int randomizaTempos() {
+	public int randomizaMinutos() {
 		Random random = new Random();
 		int tempoRandomizado = random.nextInt(5);
+		AtividadesAntiOciosidade.minutos.add(tempoRandomizado);
 		return tempoRandomizado;
-	}
-
-	public int randomizaDificuldade() {
-		Random random = new Random();
-		int dificuldadeRandomizada = random.nextInt(5);
-		return dificuldadeRandomizada;
 	}
 
 	@Override

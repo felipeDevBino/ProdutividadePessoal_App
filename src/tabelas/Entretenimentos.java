@@ -22,11 +22,11 @@ public class Entretenimentos {
 			System.out.println("\nDigite a quantidade de entretenimentos que você possui (máximo = 9): ");
 			quantidadeDeEntretenimentos = Integer.parseInt(Entretenimentos.scanner.nextLine());
 
-			if(quantidadeDeEntretenimentos > 9) {
+			if (quantidadeDeEntretenimentos > 9) {
 				System.out.println("\nQuantidade inválida, excedendo os limites estabelecidos!");
 				continue;
 			}
-			
+
 			String condicional = (quantidadeDeEntretenimentos <= 0)
 					? "\nQuantidade inválida! Insira uma quantidade positiva."
 					: "\nQuantidade registrada com sucesso.";
@@ -35,7 +35,7 @@ public class Entretenimentos {
 
 		String tempos;
 		tempos = (0 + "H : " + 0 + "M : " + 0 + "S.");
-		for (int i = 0; i < quantidadeDeEntretenimentos - 1; i++) {
+		for (int i = 0; i < quantidadeDeEntretenimentos; i++) {
 			System.out.println("\nDigite o " + (i + 1) + " entretenimento: ");
 			String atividade = Entretenimentos.scanner.nextLine();
 			Entretenimentos.entretenimentos.put(atividade, tempos);
@@ -44,25 +44,34 @@ public class Entretenimentos {
 	}
 
 	public static void getEntretenimento() {
-		System.out.println("\nDigite o número do entretenimento:");
-		int numeroDoEntretenimento = Integer.parseInt(scanner.nextLine());
-		int contador = 1;
-		for (String buscaAtividade : Entretenimentos.entretenimentos.keySet()) {
-			if (contador == numeroDoEntretenimento) {
-				System.out.println("\nEntretenimento encontrado! (" + (contador) + "): " + buscaAtividade
-						+ ", Tempo Disponível: " + Entretenimentos.entretenimentos.get(buscaAtividade));
-				AtividadesNecessarias.atividade = buscaAtividade;
-				break;
+		int numeroDoEntretenimento;
+		do {
+			System.out.println("\nDigite o número do entretenimento:");
+			numeroDoEntretenimento = Integer.parseInt(scanner.nextLine());
+			
+			if (numeroDoEntretenimento <= 0 || numeroDoEntretenimento > 9) {
+				System.out.println("\nErro! Número de entretenimento inválido!");
+				continue;
 			}
-			contador++;
-		}
+			int contador = 1;
+			for (String buscaAtividade : Entretenimentos.entretenimentos.keySet()) {
+				if (contador == numeroDoEntretenimento) {
+					System.out.println("\nEntretenimento encontrado! (" + (contador) + "): " + buscaAtividade
+							+ ", Tempo Disponível: " + Entretenimentos.entretenimentos.get(buscaAtividade));
+					AtividadesNecessarias.atividade = buscaAtividade;
+					break;
+				}
+				contador++;
+			}
+		} while (numeroDoEntretenimento <= 0 || numeroDoEntretenimento > 9);
 	}
-	
+
 	public static void getTodosOsEntretenimentos() {
 		int contador = 0;
 		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
 			for (String tempoDisponivel : Entretenimentos.entretenimentos.values()) {
-				System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento + ", Tempo Disponível: " + tempoDisponivel);
+				System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento
+						+ ", Tempo Disponível: " + tempoDisponivel);
 				contador++;
 			}
 		}

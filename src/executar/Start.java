@@ -2,10 +2,15 @@ package executar;
 
 import java.util.Scanner;
 
+import tabelas.AtividadesNecessarias;
+import tabelas.Entretenimentos;
+
 public class Start {
 
+	//Variáveis para o arquivo (dias consecutivos, etc...)
 	static Scanner scanner = new Scanner(System.in);
-
+	public static boolean terminou = false;
+	
 	/**
 	 * 
 	 * author felipeDevBino
@@ -14,9 +19,26 @@ public class Start {
 	 */
 	public static void main(String[] args) {
 		buscaListaEmDiretorios();
-		// TODO
-	}
+		
+		System.out.println("\n---------------------------------------------------------------ProdutividadePessoal_App---------------------------------------------------------------");
+		AtividadesNecessarias.defineAsAtividades();
+		Entretenimentos.defineOsEntretenimentos();
+		System.out.println("\nAtividades Obrigatórias e Entretenimentos registrados com sucesso.");
+		
+		do {
+			System.out.println("\nSelecione as 3 atividades para concluir em sua interface!");
+			
+			SelecionaAtividades.selecionaAtividade01();
+			SelecionaAtividades.selecionaAtividade02();
+			SelecionaAtividades.selecionaAtividade03();
+			
+			InterfaceGrafica.main(args);
+			//TODO
+		}while(Start.terminou);
+		System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 
+	}
+	
 	/*
 	 * QUESTIONA O USUÁRIO SE ELE GOSTARIA DE INSERIR A LOCALIZAÇÃO DE UM ARQUIVO
 	 * CONTENDO INFORMAÇÕES PARA UMA LISTA EXISTENTE, O PROGRAMA BUSCARÁ PELA

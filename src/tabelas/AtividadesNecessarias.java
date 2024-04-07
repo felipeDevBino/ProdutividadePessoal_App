@@ -11,7 +11,7 @@ import java.util.List;
  * instância, registrará no programa, para que ele mantenha essas informações,
  * como sendo as atividades necessárias e obrigatórias que o usuário deverá realizar.
  * 
- * Além disso, o usuário definirá o nível de dificuldade em 5 estrelas, quanto maior
+ * Além disso, o usuário definirá o nível de dificuldade de cada atividade, quanto maior
  * a dificuldade, mais tempo o usuário poderá ganhar para seu entretenimento
  */
 
@@ -44,7 +44,7 @@ public class AtividadesNecessarias {
 		int hora;
 		int minuto;
 		int segundo;
-		for (int i = 0; i < quantidadeDeAtividades - 1; i++) {
+		for (int i = 0; i < quantidadeDeAtividades; i++) {
 			do {
 				System.out.println("\nDigite a " + (i + 1) + " atividade: ");
 				atividade = Entretenimentos.scanner.nextLine();
@@ -75,7 +75,7 @@ public class AtividadesNecessarias {
 			AtividadesNecessarias.segundosMutaveis.add(segundo);
 
 			String minutagem;
-			minutagem = (horasMutaveis.get(i) + "H - " + minutosMutaveis.get(i) + "M - " + segundosMutaveis.get(i)
+			minutagem = (horasMutaveis.get(i) + "H : " + minutosMutaveis.get(i) + "M : " + segundosMutaveis.get(i)
 					+ "S.");
 
 			String dificuldade;

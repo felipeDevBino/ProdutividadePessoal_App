@@ -87,7 +87,7 @@ public class TempoEmEntretenimentos {
 
 				Entretenimentos.horas.remove(contador);
 				Entretenimentos.horas.add(contador, decrementaHora);
-
+	
 				Entretenimentos.minutos.remove(contador);
 				Entretenimentos.minutos.add(contador, decrementaMinuto);
 

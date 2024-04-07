@@ -22,6 +22,9 @@ import java.awt.event.ActionEvent;
 public class InterfaceGrafica {
 
 	private JFrame frame;
+	static String opcional01;
+	static String opcional02;
+	static String at1, at2, at3;
 
 	/**
 	 * Launch the application.
@@ -52,6 +55,7 @@ public class InterfaceGrafica {
 	private void initialize() {
 
 		frame = new JFrame();
+		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 7));
 		frame.setBounds(100, 100, 452, 414);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -68,30 +72,85 @@ public class InterfaceGrafica {
 
 		JLabel lblNewLabel_2 = new JLabel("ATIVIDADE 01");
 		lblNewLabel_2.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblNewLabel_2.setBounds(49, 51, 105, 14);
+		lblNewLabel_2.setBounds(49, 42, 105, 23);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("ATIVIDADE 02");
 		lblNewLabel_2_1.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblNewLabel_2_1.setBounds(173, 51, 105, 14);
+		lblNewLabel_2_1.setBounds(173, 46, 105, 14);
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		JLabel lblNewLabel_2_2 = new JLabel("ATIVIDADE 03");
 		lblNewLabel_2_2.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblNewLabel_2_2.setBounds(299, 51, 105, 14);
+		lblNewLabel_2_2.setBounds(299, 46, 105, 14);
 		frame.getContentPane().add(lblNewLabel_2_2);
 
-		JButton btnNewButton = new JButton("--");
-		btnNewButton.setBounds(49, 137, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+		JButton diminuiAt01 = new JButton("Diminuir");
+		diminuiAt01.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AtividadesNecessarias.atividade = SelecionaAtividades.atividade01;
 
-		JButton btnNewButton_1 = new JButton("--");
-		btnNewButton_1.setBounds(173, 137, 89, 23);
-		frame.getContentPane().add(btnNewButton_1);
+				String horas = JOptionPane.showInputDialog(null, "Digite as horas concluídas da atividade 01: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String minutos = JOptionPane.showInputDialog(null, "Digite os minutos concluídos da atividade 01: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String segundos = JOptionPane.showInputDialog(null, "Digite os segundos concluídos da atividade 01: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
 
-		JButton btnNewButton_2 = new JButton("--");
-		btnNewButton_2.setBounds(299, 137, 89, 23);
-		frame.getContentPane().add(btnNewButton_2);
+				int hora = Integer.parseInt(horas);
+				int minuto = Integer.parseInt(minutos);
+				int segundo = Integer.parseInt(segundos);
+
+				TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
+
+			}
+		});
+		diminuiAt01.setBounds(49, 137, 89, 23);
+		frame.getContentPane().add(diminuiAt01);
+
+		JButton diminuiAt02 = new JButton("Diminuir");
+		diminuiAt02.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AtividadesNecessarias.atividade = SelecionaAtividades.atividade02;
+
+				String horas = JOptionPane.showInputDialog(null, "Digite as horas concluídas da atividade 02: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String minutos = JOptionPane.showInputDialog(null, "Digite os minutos concluídos da atividade 02: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String segundos = JOptionPane.showInputDialog(null, "Digite os segundos concluídos da atividade 02: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+
+				int hora = Integer.parseInt(horas);
+				int minuto = Integer.parseInt(minutos);
+				int segundo = Integer.parseInt(segundos);
+
+				TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
+			}
+		});
+		diminuiAt02.setBounds(173, 137, 89, 23);
+		frame.getContentPane().add(diminuiAt02);
+
+		JButton diminuiAt03 = new JButton("Diminuir");
+		diminuiAt03.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AtividadesNecessarias.atividade = SelecionaAtividades.atividade03;
+
+				String horas = JOptionPane.showInputDialog(null, "Digite as horas concluídas da atividade 03: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String minutos = JOptionPane.showInputDialog(null, "Digite os minutos concluídos da atividade 03: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+				String segundos = JOptionPane.showInputDialog(null, "Digite os segundos concluídos da atividade 03: ",
+						"Digite", JOptionPane.QUESTION_MESSAGE);
+
+				int hora = Integer.parseInt(horas);
+				int minuto = Integer.parseInt(minutos);
+				int segundo = Integer.parseInt(segundos);
+
+				TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
+			}
+		});
+		diminuiAt03.setBounds(299, 137, 89, 23);
+		frame.getContentPane().add(diminuiAt03);
 
 		JLabel conteudoAtividade01 = new JLabel(SelecionaAtividades.atividade01);
 		conteudoAtividade01.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -100,17 +159,17 @@ public class InterfaceGrafica {
 
 		JLabel horarioAtividade01 = new JLabel(
 				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
-		horarioAtividade01.setBounds(78, 112, 46, 14);
+		horarioAtividade01.setBounds(49, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade01);
 
 		JLabel horarioAtividade02 = new JLabel(
 				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
-		horarioAtividade02.setBounds(200, 112, 46, 14);
+		horarioAtividade02.setBounds(173, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade02);
 
 		JLabel horarioAtividade03 = new JLabel(
 				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
-		horarioAtividade03.setBounds(325, 112, 46, 14);
+		horarioAtividade03.setBounds(299, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade03);
 
 		JLabel conteudoAtividade02 = new JLabel(SelecionaAtividades.atividade02);
@@ -145,28 +204,121 @@ public class InterfaceGrafica {
 
 		JLabel horarioAtividadeOpcional01 = new JLabel(
 				AtividadesAntiOciosidade.atividadesAntiOciosidade.get(SelecionaAtividades.atividade01));
-		horarioAtividadeOpcional01.setBounds(78, 252, 46, 14);
+		horarioAtividadeOpcional01.setBounds(49, 252, 89, 14);
 		frame.getContentPane().add(horarioAtividadeOpcional01);
 
 		JLabel horarioAtividadeOpcional02 = new JLabel(
 				AtividadesAntiOciosidade.atividadesAntiOciosidade.get(SelecionaAtividades.atividade02));
-		horarioAtividadeOpcional02.setBounds(325, 252, 46, 14);
+		horarioAtividadeOpcional02.setBounds(299, 252, 89, 14);
 		frame.getContentPane().add(horarioAtividadeOpcional02);
 
-		JButton btnNewButton_3 = new JButton("--");
-		btnNewButton_3.setBounds(49, 277, 89, 23);
-		frame.getContentPane().add(btnNewButton_3);
+		InterfaceGrafica.opcional01 = "Adicione";
+		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesAntiOciosidade.atividadesAntiOciosidade.get(atividade) == null) {
+				InterfaceGrafica.opcional01 = "Diminuir";
+			}
+		}
 
-		JButton btnNewButton_4 = new JButton("--");
-		btnNewButton_4.setBounds(299, 277, 89, 23);
-		frame.getContentPane().add(btnNewButton_4);
+		JButton diminuiAtOp01 = new JButton(opcional01);
+		diminuiAtOp01.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (InterfaceGrafica.opcional01.equals("Adicione")) {
 
-		JLabel lblNewLabel_3 = new JLabel("cronometro diario");
-		lblNewLabel_3.setBounds(254, 345, 94, 14);
-		frame.getContentPane().add(lblNewLabel_3);
+					SelecionaAtividades.selecionaAtividadeOpcional01();
+					InterfaceGrafica.opcional01 = SelecionaAtividades.atividadeOpcional01;
+					int contador = 0;
+					for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+						if (atividade.equals(SelecionaAtividades.atividadeOpcional01)) {
+							break;
+						}
+						contador++;
+					}
+					System.out.println(
+							"\nAtividade opcional gerada com sucesso! " + SelecionaAtividades.atividadeOpcional01
+									+ ", Tempo restante: " + AtividadesAntiOciosidade.atividadesAntiOciosidade
+											.get(SelecionaAtividades.atividadeOpcional01)
+									+ ".");
 
-		JButton btnNewButton_5 = new JButton("distribuir");
-		btnNewButton_5.addActionListener(new ActionListener() {
+				} else {
+					AtividadesAntiOciosidade.atividade = SelecionaAtividades.atividadeOpcional01;
+
+					String horas = JOptionPane.showInputDialog(null,
+							"Digite as horas concluídas da atividade opcional 01: ", "Digite",
+							JOptionPane.QUESTION_MESSAGE);
+					String minutos = JOptionPane.showInputDialog(null, "Digite os minutos concluídos da atividade 01: ",
+							"Digite", JOptionPane.QUESTION_MESSAGE);
+					String segundos = JOptionPane.showInputDialog(null,
+							"Digite os segundos concluídos da atividade 01: ", "Digite", JOptionPane.QUESTION_MESSAGE);
+
+					int hora = Integer.parseInt(horas);
+					int minuto = Integer.parseInt(minutos);
+					int segundo = Integer.parseInt(segundos);
+
+					AtividadesAntiOciosidade.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
+				}
+			}
+		});
+		diminuiAtOp01.setBounds(49, 277, 89, 23);
+		frame.getContentPane().add(diminuiAtOp01);
+
+		InterfaceGrafica.opcional02 = "Adicione";
+		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesAntiOciosidade.atividadesAntiOciosidade.get(atividade) == null) {
+				InterfaceGrafica.opcional02 = "Diminuir";
+			}
+		}
+
+		JButton diminuiAtOp02 = new JButton(opcional02);
+		diminuiAtOp02.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (InterfaceGrafica.opcional02.equals("Adicione")) {
+
+					SelecionaAtividades.selecionaAtividadeOpcional02();
+					InterfaceGrafica.opcional02 = SelecionaAtividades.atividadeOpcional02;
+					int contador = 0;
+					for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
+						if (atividade.equals(SelecionaAtividades.atividadeOpcional02)) {
+							break;
+						}
+						contador++;
+					}
+					System.out.println(
+							"\nAtividade opcional gerada com sucesso! " + SelecionaAtividades.atividadeOpcional02
+									+ ", Tempo restante: " + AtividadesAntiOciosidade.atividadesAntiOciosidade
+											.get(SelecionaAtividades.atividadeOpcional02)
+									+ ".");
+
+				} else {
+					AtividadesAntiOciosidade.atividade = SelecionaAtividades.atividadeOpcional02;
+
+					String horas = JOptionPane.showInputDialog(null,
+							"Digite as horas concluídas da atividade opcional 02: ", "Digite",
+							JOptionPane.QUESTION_MESSAGE);
+					String minutos = JOptionPane.showInputDialog(null, "Digite os minutos concluídos da atividade 02: ",
+							"Digite", JOptionPane.QUESTION_MESSAGE);
+					String segundos = JOptionPane.showInputDialog(null,
+							"Digite os segundos concluídos da atividade 02: ", "Digite", JOptionPane.QUESTION_MESSAGE);
+
+					int hora = Integer.parseInt(horas);
+					int minuto = Integer.parseInt(minutos);
+					int segundo = Integer.parseInt(segundos);
+
+					AtividadesAntiOciosidade.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
+				}
+			}
+		});
+		diminuiAtOp02.setBounds(299, 277, 89, 23);
+		frame.getContentPane().add(diminuiAtOp02);
+
+		// TODO
+		// DATA E HORA
+		JLabel cronometro = new JLabel("cronometro diario");
+		cronometro.setBounds(294, 345, 94, 14);
+		frame.getContentPane().add(cronometro);
+
+		JButton distribuir = new JButton("Distribuir");
+		distribuir.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		distribuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int contador = 0;
 				for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
@@ -178,17 +330,18 @@ public class InterfaceGrafica {
 				}
 			}
 		});
-		btnNewButton_5.setBounds(173, 277, 89, 23);
-		frame.getContentPane().add(btnNewButton_5);
-		String tempoAcumulado = TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados + "M : " + TempoEmAtividades.segundosAcumulados + "S.";
+		distribuir.setBounds(166, 277, 105, 31);
+		frame.getContentPane().add(distribuir);
+		String tempoAcumulado = TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
+				+ "M : " + TempoEmAtividades.segundosAcumulados + "S.";
 		JLabel variavelTempoAcumulado = new JLabel(tempoAcumulado);
-		variavelTempoAcumulado.setBounds(173, 252, 94, 14);
+		variavelTempoAcumulado.setBounds(187, 252, 80, 14);
 		frame.getContentPane().add(variavelTempoAcumulado);
 
-		JButton btnNewButton_6 = new JButton("diminuir");
-		btnNewButton_6.addActionListener(new ActionListener() {
+		JButton diminuir = new JButton("Diminuir");
+		diminuir.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		diminuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String entretenimentoEscolhido;
 				int contador01 = 0, contador02 = 0;
 
 				for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
@@ -197,44 +350,68 @@ public class InterfaceGrafica {
 					contador01++;
 				}
 				do {
-					entretenimentoEscolhido = JOptionPane.showInputDialog(null,
-							"Digite o número do entretenimento para decrementar com o tempo gasto:", "decremento",
+					Entretenimentos.getEntretenimento();
+
+					String horas = JOptionPane.showInputDialog(null, "Digite as horas gastas: ", "Digite",
 							JOptionPane.QUESTION_MESSAGE);
-					if (entretenimentoEscolhido.charAt(0) == contador02) {
-						String horas = JOptionPane.showInputDialog(null, "Digite as horas gastas: ", "Digite",
-								JOptionPane.QUESTION_MESSAGE);
-						String minutos = JOptionPane.showInputDialog(null, "Digite os minutos gastos: ", "Digite",
-								JOptionPane.QUESTION_MESSAGE);
-						String segundos = JOptionPane.showInputDialog(null, "Digite os segundos gastos: ", "Digite",
-								JOptionPane.QUESTION_MESSAGE);
+					String minutos = JOptionPane.showInputDialog(null, "Digite os minutos gastos: ", "Digite",
+							JOptionPane.QUESTION_MESSAGE);
+					String segundos = JOptionPane.showInputDialog(null, "Digite os segundos gastos: ", "Digite",
+							JOptionPane.QUESTION_MESSAGE);
 
-						int hora = Integer.parseInt(horas);
-						int minuto = Integer.parseInt(minutos);
-						int segundo = Integer.parseInt(segundos);
+					int hora = Integer.parseInt(horas);
+					int minuto = Integer.parseInt(minutos);
+					int segundo = Integer.parseInt(segundos);
 
-						// TODO
-						// GETS
-						TempoEmEntretenimentos.tempoDecorridoEmEntretenimentos(hora, minuto, segundo);
-						return;
-					}
-					if (contador02 == Entretenimentos.entretenimentos.size() - 1) {
-						System.out.println("\nEntretenimento não encontrado.");
-					}
+					TempoEmEntretenimentos.tempoDecorridoEmEntretenimentos(hora, minuto, segundo);
+
 					contador02++;
-
-				} while (entretenimentoEscolhido.charAt(0) != contador02);
+					// LÓGICA CASO NÃO SEJA NENHUM VALOR VALIDO DO ARRAY ENTRETENIMENTOS
+				} while (contador02 < Entretenimentos.entretenimentos.size() - 1);
 			}
 		});
-		btnNewButton_6.setBounds(173, 311, 89, 23);
-		frame.getContentPane().add(btnNewButton_6);
+		diminuir.setBounds(166, 336, 103, 31);
+		frame.getContentPane().add(diminuir);
 
 		JLabel lblNewLabel_4 = new JLabel("Tempo Acumulado");
 		lblNewLabel_4.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblNewLabel_4.setBounds(166, 224, 123, 23);
+		lblNewLabel_4.setBounds(166, 224, 116, 23);
 		frame.getContentPane().add(lblNewLabel_4);
 
-		JButton btnNewButton_7 = new JButton("OPÇÕES");
-		btnNewButton_7.setBounds(78, 341, 89, 23);
-		frame.getContentPane().add(btnNewButton_7);
+		JButton opcoes = new JButton("OPÇÕES");
+		opcoes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// TODO
+
+			}
+		});
+		opcoes.setBounds(49, 341, 89, 23);
+		frame.getContentPane().add(opcoes);
+
+		JLabel lblNewLabel_3 = new JLabel("^");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblNewLabel_3.setBounds(211, 327, 35, 0);
+		frame.getContentPane().add(lblNewLabel_3);
+
+		JLabel lblNewLabel_3_1 = new JLabel("v");
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblNewLabel_3_1.setBounds(221, 319, 0, 31);
+		frame.getContentPane().add(lblNewLabel_3_1);
+
+		JLabel lblNewLabel_3_1_1 = new JLabel("^");
+		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblNewLabel_3_1_1.setBounds(218, 299, 35, 23);
+		frame.getContentPane().add(lblNewLabel_3_1_1);
+
+		JLabel lblNewLabel_6_1 = new JLabel("ENTRETENIMENTOS");
+		lblNewLabel_6_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel_6_1.setBounds(173, 297, 98, 51);
+		frame.getContentPane().add(lblNewLabel_6_1);
+
+		JLabel lblNewLabel_5 = new JLabel("v");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblNewLabel_5.setBounds(221, 328, 13, 14);
+		frame.getContentPane().add(lblNewLabel_5);
 	}
 }

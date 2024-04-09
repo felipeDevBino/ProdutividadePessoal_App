@@ -103,10 +103,11 @@ public class AtividadesNecessarias {
 	public static void getAtividade() {
 		System.out.println("\nDigite o número da atividade:");
 		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
-		int contador = 1;
+		
+		int contador = 0;
 		for (String buscaAtividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			if (contador == numeroDaAtividade) {
-				System.out.println("\nAtividade encontrada! (" + (contador) + "): " + buscaAtividade
+			if (contador == (numeroDaAtividade - 1)) {
+				System.out.println("\nAtividade encontrada! (" + (contador+1) + "): " + buscaAtividade
 						+ ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(buscaAtividade)
 						+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
 				AtividadesNecessarias.atividade = buscaAtividade;
@@ -119,12 +120,12 @@ public class AtividadesNecessarias {
 	public static void getTodasAsAtividades() {
 		int contador = 0;
 		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-			for (String tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
+//			for (String tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
 				System.out.println(
-						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + tempoDisponivel
+						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(atividade)
 								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
 				contador++;
-			}
+//			}
 		}
 	}
 

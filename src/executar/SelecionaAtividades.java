@@ -2,7 +2,6 @@ package executar;
 
 import tabelas.AtividadesAntiOciosidade;
 import tabelas.AtividadesNecessarias;
-import tabelas.TempoEmAtividades;
 
 // ESCOLHE ATÉ 3 ATIVIDADES PRINCIPAIS PARA FAZER DE UMA VEZ, FORNECENDO AO
 // USUÁRIO UMA PEQUENA INTERFACE PARA DECREMENTAR O TEMPO DAS ATIVIDADES
@@ -33,7 +32,7 @@ public class SelecionaAtividades {
 			SelecionaAtividades.atividade02 = AtividadesNecessarias.atividade;
 			if (SelecionaAtividades.atividade02.equals(atividade01)
 					|| SelecionaAtividades.atividade02.equals(atividade03)) {
-				System.out.println("\nErro! essa atividade já foi selecionada por algum espaço!");
+				System.out.println("\nErro! essa atividade é inválida ou já foi selecionada por algum espaço!");
 			}
 		} while (SelecionaAtividades.atividade02.equals(atividade01)
 				|| SelecionaAtividades.atividade02.equals(atividade03));

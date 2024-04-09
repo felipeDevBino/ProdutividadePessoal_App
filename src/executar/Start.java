@@ -28,6 +28,8 @@ public class Start {
 		do {
 			System.out.println("\nSelecione as 3 atividades para concluir em sua interface!");
 			
+			AtividadesNecessarias.getTodasAsAtividades();
+			
 			SelecionaAtividades.selecionaAtividade01();
 			SelecionaAtividades.selecionaAtividade02();
 			SelecionaAtividades.selecionaAtividade03();

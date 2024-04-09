@@ -132,6 +132,7 @@ public class InterfaceGrafica {
 
 				if (InterfaceGrafica.at1.equals("Adicione")) {
 
+					AtividadesNecessarias.getTodasAsAtividades();
 					SelecionaAtividades.selecionaAtividade01();
 					InterfaceGrafica.at1 = SelecionaAtividades.atividade01;
 
@@ -140,8 +141,9 @@ public class InterfaceGrafica {
 							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01) + ".");
 					diminuiAt01.setText("Diminuir");
 					conteudoAtividade01.setText(SelecionaAtividades.atividade01);
-					horarioAtividade01.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
-					
+					horarioAtividade01
+							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+
 				} else {
 
 					do {
@@ -161,10 +163,10 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized(AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
-					
+
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
@@ -176,7 +178,8 @@ public class InterfaceGrafica {
 						InterfaceGrafica.concluiu = false;
 
 					} else {
-						System.out.println(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+						System.out.println(
+								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 						horarioAtividade01.setText(
 								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 					}
@@ -196,6 +199,7 @@ public class InterfaceGrafica {
 
 				if (InterfaceGrafica.at2.equals("Adicione")) {
 
+					AtividadesNecessarias.getTodasAsAtividades();
 					SelecionaAtividades.selecionaAtividade02();
 					InterfaceGrafica.at2 = SelecionaAtividades.atividade02;
 
@@ -204,8 +208,8 @@ public class InterfaceGrafica {
 							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02) + ".");
 					diminuiAt02.setText("Diminuir");
 					conteudoAtividade02.setText(SelecionaAtividades.atividade02);
-					horarioAtividade02.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
-					
+					horarioAtividade02
+							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
 
 				} else {
 
@@ -226,10 +230,10 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized(AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
-					
+
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
@@ -260,7 +264,8 @@ public class InterfaceGrafica {
 
 				if (InterfaceGrafica.at3.equals("Adicione")) {
 
-					SelecionaAtividades.selecionaAtividade01();
+					AtividadesNecessarias.getTodasAsAtividades();
+					SelecionaAtividades.selecionaAtividade03();
 					InterfaceGrafica.at3 = SelecionaAtividades.atividade03;
 
 					System.out.println("\nAtividade gerada com sucesso! " + SelecionaAtividades.atividade03
@@ -268,8 +273,9 @@ public class InterfaceGrafica {
 							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03) + ".");
 					diminuiAt03.setText("Diminuir");
 					conteudoAtividade03.setText(SelecionaAtividades.atividade03);
-					horarioAtividade03.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
-					
+					horarioAtividade03
+							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
+
 				} else {
 
 					do {
@@ -289,10 +295,10 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized(AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
-					
+
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
@@ -489,14 +495,11 @@ public class InterfaceGrafica {
 		distribuir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		distribuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int contador = 0;
-				for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-					JOptionPane.showMessageDialog(null, entretenimento, "Entretenimento " + (contador + 1),
-							JOptionPane.INFORMATION_MESSAGE);
-					TempoEmEntretenimentos.incrementaTempo(TempoEmAtividades.horasAcumuladas,
-							TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
-					contador++;
-				}
+
+				Entretenimentos.getTodosOsEntretenimentos();
+				TempoEmEntretenimentos.incrementaTempo(TempoEmAtividades.horasAcumuladas,
+						TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
+				
 			}
 		});
 		distribuir.setBounds(166, 277, 105, 31);
@@ -545,7 +548,10 @@ public class InterfaceGrafica {
 		JButton opcoes = new JButton("OPÇÕES");
 		opcoes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				//Mostrará todos os entretenimentos e tempos disponíveis
+				//Terá a opção do usuário resetar o cronômetro diário
+				//Terá a opção do usuário reiniciar a tela, adicionando novas variaveis ou existentes
+				//Terá a opção de ver o histórico das atividades concluidas e dias sequenciais de realização
 				// TODO
 
 			}

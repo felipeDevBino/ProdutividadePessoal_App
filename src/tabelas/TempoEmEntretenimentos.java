@@ -29,29 +29,44 @@ public class TempoEmEntretenimentos {
 		if (hora == 0 && minuto == 0 && segundo == 0) {
 			System.out.println("\nVocê não possui tempo acumulado para distribuir!");
 		} else {
-			System.out.println(
-					"\nDigite o número do entretenimento para o qual você deseja adicionar tempo disponível: ");
-			int entretenimentoEscolhido = Integer.parseInt(scanner.nextLine());
+			
+			//OPÇÃO DE ESCOLHER OS ENTRETENIMENTOS E A QUANTIDADE DE TEMPO PARA CADA
+			
+			System.out.println("\nAdicione tempo disponível");
+			Entretenimentos.getEntretenimento();
 
 			int contador = 0;
 			for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-				if (contador == entretenimentoEscolhido) {
+				if (Entretenimentos.entretenimento.equals(entretenimento)) {
 
-					int incrementaHora = Entretenimentos.horas.get(contador);
-					incrementaHora += hora;
-					int incrementaMinuto = Entretenimentos.minutos.get(contador);
-					incrementaMinuto += minuto;
-					int incrementaSegundo = Entretenimentos.segundos.get(contador);
-					incrementaSegundo += segundo;
-
-					Entretenimentos.horas.remove(contador);
-					Entretenimentos.horas.add(contador, incrementaHora);
-
-					Entretenimentos.minutos.remove(contador);
-					Entretenimentos.minutos.add(contador, incrementaMinuto);
-
-					Entretenimentos.segundos.remove(contador);
-					Entretenimentos.segundos.add(contador, incrementaSegundo);
+					int incrementaHora = 0, incrementaMinuto = 0, incrementaSegundo = 0;
+					if (Entretenimentos.horas.isEmpty()) {
+						Entretenimentos.horas.add(contador, incrementaHora);
+					}
+					if (Entretenimentos.minutos.isEmpty()) {
+						Entretenimentos.minutos.add(contador, incrementaMinuto);
+					}
+					if (Entretenimentos.segundos.isEmpty()) {
+						Entretenimentos.segundos.add(contador, incrementaSegundo);
+					}
+					if (hora > 0) {
+						incrementaHora = Entretenimentos.horas.get(contador);
+						incrementaHora += hora;
+						Entretenimentos.horas.remove(contador);
+						Entretenimentos.horas.add(contador, incrementaHora);
+					}
+					if (minuto > 0) {
+						incrementaMinuto = Entretenimentos.minutos.get(contador);
+						incrementaMinuto += minuto;
+						Entretenimentos.minutos.remove(contador);
+						Entretenimentos.minutos.add(contador, incrementaMinuto);
+					}
+					if (segundo > 0) {
+						incrementaSegundo = Entretenimentos.segundos.get(contador);
+						incrementaSegundo += segundo;
+						Entretenimentos.segundos.remove(contador);
+						Entretenimentos.segundos.add(contador, incrementaSegundo);
+					}
 
 					String atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
 							+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)
@@ -59,9 +74,19 @@ public class TempoEmEntretenimentos {
 					Entretenimentos.entretenimentos.remove(entretenimento);
 					Entretenimentos.entretenimentos.put(entretenimento, atualizaTempo);
 
-					System.out.println("\nTempo adicionado/incrementado com sucesso.");
+					System.out.println("\nTempo adicionado/incrementado com sucesso!\nEntretenimento " + (contador + 1)
+							+ ": " + entretenimento + ", Tempo Disponível: " + Entretenimentos.entretenimentos.get(entretenimento) + ".");
+					
+					//INSTRUÇÃO DE TEMPO GASTO PARA ATUALIZAR NO WINDOW BUILDER
+					
+					break;
 				}
 				contador++;
+				if (contador == Entretenimentos.entretenimentos.size()) {
+					// this
+					System.out.println("\nErro! Entretenimento não encontrado.");
+					incrementaTempo(hora, minuto, segundo);
+				}
 			}
 		}
 	}
@@ -78,21 +103,24 @@ public class TempoEmEntretenimentos {
 		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
 			if (Entretenimentos.entretenimento.equals(entretenimento)) {
 
-				int decrementaHora = Entretenimentos.horas.get(contador);
-				decrementaHora -= hora;
-				int decrementaMinuto = Entretenimentos.minutos.get(contador);
-				decrementaMinuto -= minuto;
-				int decrementaSegundo = Entretenimentos.segundos.get(contador);
-				decrementaSegundo -= segundo;
-
-				Entretenimentos.horas.remove(contador);
-				Entretenimentos.horas.add(contador, decrementaHora);
-	
-				Entretenimentos.minutos.remove(contador);
-				Entretenimentos.minutos.add(contador, decrementaMinuto);
-
-				Entretenimentos.segundos.remove(contador);
-				Entretenimentos.segundos.add(contador, decrementaSegundo);
+				if (hora > 0) {
+					int decrementaHora = Entretenimentos.horas.get(contador);
+					decrementaHora -= hora;
+					Entretenimentos.horas.remove(contador);
+					Entretenimentos.horas.add(contador, decrementaHora);
+				}
+				if (minuto > 0) {
+					int decrementaMinuto = Entretenimentos.minutos.get(contador);
+					decrementaMinuto -= minuto;
+					Entretenimentos.minutos.remove(contador);
+					Entretenimentos.minutos.add(contador, decrementaMinuto);
+				}
+				if (segundo > 0) {
+					int decrementaSegundo = Entretenimentos.segundos.get(contador);
+					decrementaSegundo -= segundo;
+					Entretenimentos.segundos.remove(contador);
+					Entretenimentos.segundos.add(contador, decrementaSegundo);
+				}
 
 				String atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
 						+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)

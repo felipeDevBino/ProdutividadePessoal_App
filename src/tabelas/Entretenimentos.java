@@ -58,7 +58,7 @@ public class Entretenimentos {
 				if (contador == numeroDoEntretenimento) {
 					System.out.println("\nEntretenimento encontrado! (" + (contador) + "): " + buscaAtividade
 							+ ", Tempo Disponível: " + Entretenimentos.entretenimentos.get(buscaAtividade));
-					AtividadesNecessarias.atividade = buscaAtividade;
+					Entretenimentos.entretenimento = buscaAtividade;
 					break;
 				}
 				contador++;

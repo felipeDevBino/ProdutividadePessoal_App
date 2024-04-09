@@ -120,12 +120,10 @@ public class AtividadesNecessarias {
 	public static void getTodasAsAtividades() {
 		int contador = 0;
 		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
-//			for (String tempoDisponivel : AtividadesNecessarias.atividadesObrigatorias.values()) {
 				System.out.println(
 						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(atividade)
 								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
 				contador++;
-//			}
 		}
 	}
 

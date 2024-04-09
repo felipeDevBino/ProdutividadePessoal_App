@@ -53,7 +53,7 @@ public class TempoEmAtividades {
 					int horaMutavel = 0;
 					int minutoMutavel = 0;
 					int segundoMutavel = 0;
-
+						
 					if (AtividadesNecessarias.horasMutaveis.get(contador) > 0) {
 						horaMutavel = AtividadesNecessarias.horasMutaveis.get(contador);
 						horaMutavel -= hora;

@@ -2,8 +2,8 @@ package executar;
 
 import java.util.Scanner;
 
-import tabelas.AtividadesNecessarias;
-import tabelas.Entretenimentos;
+import atividades.AtividadesObrigatorias;
+import atividades.Entretenimentos;
 
 public class Start {
 
@@ -21,14 +21,14 @@ public class Start {
 		buscaListaEmDiretorios();
 		
 		System.out.println("\n---------------------------------------------------------------ProdutividadePessoal_App---------------------------------------------------------------");
-		AtividadesNecessarias.defineAsAtividades();
+		AtividadesObrigatorias.defineAsAtividades();
 		Entretenimentos.defineOsEntretenimentos();
 		System.out.println("\nAtividades Obrigatórias e Entretenimentos registrados com sucesso.");
 		
 		do {
 			System.out.println("\nSelecione as 3 atividades para concluir em sua interface!");
 			
-			AtividadesNecessarias.getTodasAsAtividades();
+			AtividadesObrigatorias.getTodasAsAtividades();
 			
 			SelecionaAtividades.selecionaAtividade01();
 			SelecionaAtividades.selecionaAtividade02();

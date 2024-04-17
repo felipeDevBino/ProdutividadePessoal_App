@@ -1,7 +1,7 @@
 package executar;
 
-import tabelas.AtividadesAntiOciosidade;
-import tabelas.AtividadesNecessarias;
+import atividades.AtividadesAntiOciosidade;
+import atividades.AtividadesObrigatorias;
 
 // ESCOLHE ATÉ 3 ATIVIDADES PRINCIPAIS PARA FAZER DE UMA VEZ, FORNECENDO AO
 // USUÁRIO UMA PEQUENA INTERFACE PARA DECREMENTAR O TEMPO DAS ATIVIDADES
@@ -15,8 +15,8 @@ public class SelecionaAtividades {
 	public static void selecionaAtividade01() {
 
 		do {
-			AtividadesNecessarias.getAtividade();
-			SelecionaAtividades.atividade01 = AtividadesNecessarias.atividade;
+			AtividadesObrigatorias.getAtividade();
+			SelecionaAtividades.atividade01 = AtividadesObrigatorias.atividade;
 			if (SelecionaAtividades.atividade01.equals(atividade02)
 					|| SelecionaAtividades.atividade01.equals(atividade03)) {
 				System.out.println("\nErro! essa atividade já foi selecionada por algum espaço!");
@@ -28,8 +28,8 @@ public class SelecionaAtividades {
 	public static void selecionaAtividade02() {
 
 		do {
-			AtividadesNecessarias.getAtividade();
-			SelecionaAtividades.atividade02 = AtividadesNecessarias.atividade;
+			AtividadesObrigatorias.getAtividade();
+			SelecionaAtividades.atividade02 = AtividadesObrigatorias.atividade;
 			if (SelecionaAtividades.atividade02.equals(atividade01)
 					|| SelecionaAtividades.atividade02.equals(atividade03)) {
 				System.out.println("\nErro! essa atividade é inválida ou já foi selecionada por algum espaço!");
@@ -42,8 +42,8 @@ public class SelecionaAtividades {
 	public static void selecionaAtividade03() {
 		
 		do {
-			AtividadesNecessarias.getAtividade();
-			SelecionaAtividades.atividade03 = AtividadesNecessarias.atividade;
+			AtividadesObrigatorias.getAtividade();
+			SelecionaAtividades.atividade03 = AtividadesObrigatorias.atividade;
 			if (SelecionaAtividades.atividade03.equals(atividade01)
 					|| SelecionaAtividades.atividade03.equals(atividade02)) {
 				System.out.println("\nErro! essa atividade já foi selecionada por algum espaço!");

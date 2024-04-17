@@ -9,11 +9,11 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import tabelas.AtividadesAntiOciosidade;
-import tabelas.AtividadesNecessarias;
-import tabelas.Entretenimentos;
-import tabelas.TempoEmAtividades;
-import tabelas.TempoEmEntretenimentos;
+import atividades.AtividadesAntiOciosidade;
+import atividades.AtividadesObrigatorias;
+import atividades.Entretenimentos;
+import atividades.TempoEmEntretenimentos;
+import atividades.TempoEmAtividades;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -98,17 +98,17 @@ public class InterfaceGrafica {
 		frame.getContentPane().add(conteudoAtividade01);
 
 		JLabel horarioAtividade01 = new JLabel(
-				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+				AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 		horarioAtividade01.setBounds(49, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade01);
 
 		JLabel horarioAtividade02 = new JLabel(
-				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
+				AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
 		horarioAtividade02.setBounds(173, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade02);
 
 		JLabel horarioAtividade03 = new JLabel(
-				AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
+				AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
 		horarioAtividade03.setBounds(299, 112, 89, 14);
 		frame.getContentPane().add(horarioAtividade03);
 
@@ -126,23 +126,23 @@ public class InterfaceGrafica {
 		JButton diminuiAt01 = new JButton(InterfaceGrafica.at1);
 		diminuiAt01.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AtividadesNecessarias.atividade = SelecionaAtividades.atividade01;
+				AtividadesObrigatorias.atividade = SelecionaAtividades.atividade01;
 
 				String horas, minutos, segundos;
 
 				if (InterfaceGrafica.at1.equals("Adicione")) {
 
-					AtividadesNecessarias.getTodasAsAtividades();
+					AtividadesObrigatorias.getTodasAsAtividades();
 					SelecionaAtividades.selecionaAtividade01();
 					InterfaceGrafica.at1 = SelecionaAtividades.atividade01;
 
 					System.out.println("\nAtividade gerada com sucesso! " + SelecionaAtividades.atividade01
 							+ ", Tempo restante: "
-							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01) + ".");
+							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01) + ".");
 					diminuiAt01.setText("Diminuir");
 					conteudoAtividade01.setText(SelecionaAtividades.atividade01);
 					horarioAtividade01
-							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 
 				} else {
 
@@ -163,7 +163,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
 
@@ -179,9 +179,9 @@ public class InterfaceGrafica {
 
 					} else {
 						System.out.println(
-								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+								AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 						horarioAtividade01.setText(
-								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+								AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 					}
 				}
 			}
@@ -193,23 +193,23 @@ public class InterfaceGrafica {
 		JButton diminuiAt02 = new JButton(InterfaceGrafica.at2);
 		diminuiAt02.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AtividadesNecessarias.atividade = SelecionaAtividades.atividade02;
+				AtividadesObrigatorias.atividade = SelecionaAtividades.atividade02;
 
 				String horas, minutos, segundos;
 
 				if (InterfaceGrafica.at2.equals("Adicione")) {
 
-					AtividadesNecessarias.getTodasAsAtividades();
+					AtividadesObrigatorias.getTodasAsAtividades();
 					SelecionaAtividades.selecionaAtividade02();
 					InterfaceGrafica.at2 = SelecionaAtividades.atividade02;
 
 					System.out.println("\nAtividade gerada com sucesso! " + SelecionaAtividades.atividade02
 							+ ", Tempo restante: "
-							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02) + ".");
+							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02) + ".");
 					diminuiAt02.setText("Diminuir");
 					conteudoAtividade02.setText(SelecionaAtividades.atividade02);
 					horarioAtividade02
-							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
+							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
 
 				} else {
 
@@ -230,7 +230,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
 
@@ -246,7 +246,7 @@ public class InterfaceGrafica {
 
 					} else {
 						horarioAtividade02.setText(
-								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
+								AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
 					}
 				}
 			}
@@ -258,23 +258,23 @@ public class InterfaceGrafica {
 		JButton diminuiAt03 = new JButton(InterfaceGrafica.at3);
 		diminuiAt03.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AtividadesNecessarias.atividade = SelecionaAtividades.atividade03;
+				AtividadesObrigatorias.atividade = SelecionaAtividades.atividade03;
 
 				String horas, minutos, segundos;
 
 				if (InterfaceGrafica.at3.equals("Adicione")) {
 
-					AtividadesNecessarias.getTodasAsAtividades();
+					AtividadesObrigatorias.getTodasAsAtividades();
 					SelecionaAtividades.selecionaAtividade03();
 					InterfaceGrafica.at3 = SelecionaAtividades.atividade03;
 
 					System.out.println("\nAtividade gerada com sucesso! " + SelecionaAtividades.atividade03
 							+ ", Tempo restante: "
-							+ AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03) + ".");
+							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03) + ".");
 					diminuiAt03.setText("Diminuir");
 					conteudoAtividade03.setText(SelecionaAtividades.atividade03);
 					horarioAtividade03
-							.setText(AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
+							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
 
 				} else {
 
@@ -295,7 +295,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized (AtividadesNecessarias.atividadesObrigatorias) {
+					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
 						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 					}
 
@@ -311,7 +311,7 @@ public class InterfaceGrafica {
 
 					} else {
 						horarioAtividade03.setText(
-								AtividadesNecessarias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
+								AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
 					}
 				}
 			}

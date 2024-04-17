@@ -1,4 +1,4 @@
-package tabelas;
+package atividades;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ import java.util.List;
  * a dificuldade, mais tempo o usuário poderá ganhar para seu entretenimento
  */
 
-public class AtividadesNecessarias {
+public class AtividadesObrigatorias {
 
 	static Scanner scanner = new Scanner(System.in);
 	public static Map<String, String> atividadesObrigatorias = new HashMap<String, String>();
@@ -66,13 +66,13 @@ public class AtividadesNecessarias {
 				}
 			} while (atividade == null || hora <= 0 && minuto <= 0 && segundo <= 0);
 
-			AtividadesNecessarias.horasOriginais.add(hora);
-			AtividadesNecessarias.minutosOriginais.add(minuto);
-			AtividadesNecessarias.segundosOriginais.add(segundo);
+			AtividadesObrigatorias.horasOriginais.add(hora);
+			AtividadesObrigatorias.minutosOriginais.add(minuto);
+			AtividadesObrigatorias.segundosOriginais.add(segundo);
 
-			AtividadesNecessarias.horasMutaveis.add(hora);
-			AtividadesNecessarias.minutosMutaveis.add(minuto);
-			AtividadesNecessarias.segundosMutaveis.add(segundo);
+			AtividadesObrigatorias.horasMutaveis.add(hora);
+			AtividadesObrigatorias.minutosMutaveis.add(minuto);
+			AtividadesObrigatorias.segundosMutaveis.add(segundo);
 
 			String minutagem;
 			minutagem = (horasMutaveis.get(i) + "H : " + minutosMutaveis.get(i) + "M : " + segundosMutaveis.get(i)
@@ -82,7 +82,7 @@ public class AtividadesNecessarias {
 			do {
 				System.out.println(
 						"\nDigite o nível de dificuldade que você classifica essa atividade: (muito fácil, fácil, intermediário, difícil, muito difícil)");
-				dificuldade = AtividadesNecessarias.scanner.nextLine();
+				dificuldade = AtividadesObrigatorias.scanner.nextLine();
 
 				if (!dificuldade.equals("muito fácil") && !dificuldade.equals("fácil")
 						&& !dificuldade.equals("intermediário") && !dificuldade.equals("difícil")
@@ -94,8 +94,8 @@ public class AtividadesNecessarias {
 					&& !dificuldade.equals("intermediário") && !dificuldade.equals("difícil")
 					&& !dificuldade.equals("muito difícil"));
 
-			AtividadesNecessarias.atividadesObrigatorias.put(atividade, minutagem);
-			AtividadesNecessarias.dificuldadeDeCadaAtividade.add(dificuldade);
+			AtividadesObrigatorias.atividadesObrigatorias.put(atividade, minutagem);
+			AtividadesObrigatorias.dificuldadeDeCadaAtividade.add(dificuldade);
 		}
 
 	}
@@ -105,12 +105,12 @@ public class AtividadesNecessarias {
 		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
 		
 		int contador = 0;
-		for (String buscaAtividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
+		for (String buscaAtividade : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
 			if (contador == (numeroDaAtividade - 1)) {
 				System.out.println("\nAtividade encontrada! (" + (contador+1) + "): " + buscaAtividade
-						+ ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(buscaAtividade)
-						+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
-				AtividadesNecessarias.atividade = buscaAtividade;
+						+ ", Tempo Restante: " + AtividadesObrigatorias.atividadesObrigatorias.get(buscaAtividade)
+						+ ", Dificuldade: " + AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador));
+				AtividadesObrigatorias.atividade = buscaAtividade;
 				break;
 			}
 			contador++;
@@ -119,10 +119,10 @@ public class AtividadesNecessarias {
 
 	public static void getTodasAsAtividades() {
 		int contador = 0;
-		for (String atividade : AtividadesNecessarias.atividadesObrigatorias.keySet()) {
+		for (String atividade : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
 				System.out.println(
-						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + AtividadesNecessarias.atividadesObrigatorias.get(atividade)
-								+ ", Dificuldade: " + AtividadesNecessarias.dificuldadeDeCadaAtividade.get(contador));
+						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + AtividadesObrigatorias.atividadesObrigatorias.get(atividade)
+								+ ", Dificuldade: " + AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador));
 				contador++;
 		}
 	}

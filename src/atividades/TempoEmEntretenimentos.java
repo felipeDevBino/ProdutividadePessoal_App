@@ -1,4 +1,4 @@
-package tabelas;
+package atividades;
 
 import java.util.Scanner;
 

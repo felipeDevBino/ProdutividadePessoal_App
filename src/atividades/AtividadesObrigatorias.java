@@ -2,6 +2,9 @@ package atividades;
 
 import java.util.Map;
 import java.util.Scanner;
+
+import logica_horarios.SistemaDeTempo;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +27,8 @@ public class AtividadesObrigatorias {
 			"muito dificil" };
 	public static List<Integer> horasOriginais = new ArrayList<Integer>(), horasMutaveis = new ArrayList<Integer>();
 	public static List<Integer> minutosOriginais = new ArrayList<Integer>(), minutosMutaveis = new ArrayList<Integer>();
-	public static List<Integer> segundosOriginais = new ArrayList<Integer>(), segundosMutaveis = new ArrayList<Integer>();
+	public static List<Integer> segundosOriginais = new ArrayList<Integer>(),
+			segundosMutaveis = new ArrayList<Integer>();
 	public static String atividade;
 
 	public static void defineAsAtividades() {
@@ -41,30 +45,49 @@ public class AtividadesObrigatorias {
 		} while (quantidadeDeAtividades <= 0);
 
 		String atividade;
-		int hora;
-		int minuto;
-		int segundo;
+		int hora = 0;
+		int minuto = 0;
+		int segundo = 0;
+		boolean repetida = false;
 		for (int i = 0; i < quantidadeDeAtividades; i++) {
 			do {
+				repetida = false;
 				System.out.println("\nDigite a " + (i + 1) + " atividade: ");
 				atividade = Entretenimentos.scanner.nextLine();
-
-				System.out.println("\nDigite o tempo que você leva para concluir esta atividade:");
-
-				System.out.println("\n(horas):");
-				hora = Integer.parseInt(Entretenimentos.scanner.nextLine());
-				System.out.println("\n(minutos):");
-				minuto = Integer.parseInt(Entretenimentos.scanner.nextLine());
-				System.out.println("\n(segundos):");
-				segundo = Integer.parseInt(Entretenimentos.scanner.nextLine());
-
-				if (atividade == null) {
-					System.out.println("\nERRO! Não há nenhuma informação para a atividade!");
+				
+				for (String atividadeInserida : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
+					if (atividade.equals(atividadeInserida)) {
+						System.out.println("\nErro! Você já inseriu uma atividade com este nome");
+						repetida = true;
+					}
 				}
-				if (hora <= 0 && minuto <= 0 && segundo <= 0) {
-					System.out.println("\nERRO! Minutagem inválida! Digite valores superiores a zero para o tempo!");
+
+				if (!repetida) {
+					System.out.println("\nDigite o tempo que você leva para concluir esta atividade:");
+
+					System.out.println("\n(horas):");
+					hora = Integer.parseInt(Entretenimentos.scanner.nextLine());
+					System.out.println("\n(minutos):");
+					minuto = Integer.parseInt(Entretenimentos.scanner.nextLine());
+					System.out.println("\n(segundos):");
+					segundo = Integer.parseInt(Entretenimentos.scanner.nextLine());
+
+					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+					sistemaDeTempo.sistemaDeTempoIncrementado(hora, minuto, segundo);
+
+					hora = sistemaDeTempo.horasIncrementadas;
+					minuto = sistemaDeTempo.minutosIncrementados;
+					segundo = sistemaDeTempo.segundosIncrementados;
+
+					if (atividade == null) {
+						System.out.println("\nERRO! Não há nenhuma informação para a atividade!");
+					}
+					if (hora <= 0 && minuto <= 0 && segundo <= 0) {
+						System.out
+								.println("\nERRO! Minutagem inválida! Digite valores superiores a zero para o tempo!");
+					}
 				}
-			} while (atividade == null || hora <= 0 && minuto <= 0 && segundo <= 0);
+			} while (atividade == null || hora <= 0 && minuto <= 0 && segundo <= 0 || repetida);
 
 			AtividadesObrigatorias.horasOriginais.add(hora);
 			AtividadesObrigatorias.minutosOriginais.add(minuto);
@@ -75,8 +98,9 @@ public class AtividadesObrigatorias {
 			AtividadesObrigatorias.segundosMutaveis.add(segundo);
 
 			String minutagem;
-			minutagem = (horasMutaveis.get(i) + "H : " + minutosMutaveis.get(i) + "M : " + segundosMutaveis.get(i)
-					+ "S.");
+			minutagem = (AtividadesObrigatorias.horasMutaveis.get(i) + "H : "
+					+ AtividadesObrigatorias.minutosMutaveis.get(i) + "M : "
+					+ AtividadesObrigatorias.segundosMutaveis.get(i) + "S.");
 
 			String dificuldade;
 			do {
@@ -103,11 +127,11 @@ public class AtividadesObrigatorias {
 	public static void getAtividade() {
 		System.out.println("\nDigite o número da atividade:");
 		int numeroDaAtividade = Integer.parseInt(scanner.nextLine());
-		
+
 		int contador = 0;
 		for (String buscaAtividade : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
 			if (contador == (numeroDaAtividade - 1)) {
-				System.out.println("\nAtividade encontrada! (" + (contador+1) + "): " + buscaAtividade
+				System.out.println("\nAtividade encontrada! (" + (contador + 1) + "): " + buscaAtividade
 						+ ", Tempo Restante: " + AtividadesObrigatorias.atividadesObrigatorias.get(buscaAtividade)
 						+ ", Dificuldade: " + AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador));
 				AtividadesObrigatorias.atividade = buscaAtividade;
@@ -119,11 +143,13 @@ public class AtividadesObrigatorias {
 
 	public static void getTodasAsAtividades() {
 		int contador = 0;
+		System.out.println(
+				"\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 		for (String atividade : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
-				System.out.println(
-						"\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: " + AtividadesObrigatorias.atividadesObrigatorias.get(atividade)
-								+ ", Dificuldade: " + AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador));
-				contador++;
+			System.out.println("\nAtividade (" + (contador + 1) + "): " + atividade + ", Tempo Restante: "
+					+ AtividadesObrigatorias.atividadesObrigatorias.get(atividade) + " Dificuldade: "
+					+ AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador));
+			contador++;
 		}
 	}
 

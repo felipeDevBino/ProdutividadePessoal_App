@@ -1,6 +1,6 @@
 package executar;
 
-import atividades.AtividadesAntiOciosidade;
+import atividades.AtividadesOpcionais;
 import atividades.AtividadesObrigatorias;
 
 // ESCOLHE ATÉ 3 ATIVIDADES PRINCIPAIS PARA FAZER DE UMA VEZ, FORNECENDO AO
@@ -19,7 +19,7 @@ public class SelecionaAtividades {
 			SelecionaAtividades.atividade01 = AtividadesObrigatorias.atividade;
 			if (SelecionaAtividades.atividade01.equals(atividade02)
 					|| SelecionaAtividades.atividade01.equals(atividade03)) {
-				System.out.println("\nErro! essa atividade já foi selecionada por algum espaço!");
+				System.out.println("\nErro! Essa atividade não existe ou já foi selecionada por algum espaço!");
 			}
 		} while (SelecionaAtividades.atividade01.equals(atividade02)
 				|| SelecionaAtividades.atividade01.equals(atividade03));
@@ -53,11 +53,11 @@ public class SelecionaAtividades {
 	}
 
 	public static void selecionaAtividadeOpcional01() {
-		SelecionaAtividades.atividadeOpcional01 = AtividadesAntiOciosidade.defineAtividadeAntiOciosidade();
+		SelecionaAtividades.atividadeOpcional01 = AtividadesOpcionais.defineAtividadeAntiOciosidade();
 	}
 	
 	public static void selecionaAtividadeOpcional02() {
-		SelecionaAtividades.atividadeOpcional02 = AtividadesAntiOciosidade.defineAtividadeAntiOciosidade();	
+		SelecionaAtividades.atividadeOpcional02 = AtividadesOpcionais.defineAtividadeAntiOciosidade();	
 	}
 
 

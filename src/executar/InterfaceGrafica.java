@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import atividades.AtividadesAntiOciosidade;
+import atividades.AtividadesOpcionais;
 import atividades.AtividadesObrigatorias;
 import atividades.Entretenimentos;
 import atividades.TempoEmEntretenimentos;
@@ -141,8 +141,8 @@ public class InterfaceGrafica {
 							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01) + ".");
 					diminuiAt01.setText("Diminuir");
 					conteudoAtividade01.setText(SelecionaAtividades.atividade01);
-					horarioAtividade01
-							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
+					horarioAtividade01.setText(
+							AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade01));
 
 				} else {
 
@@ -208,8 +208,8 @@ public class InterfaceGrafica {
 							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02) + ".");
 					diminuiAt02.setText("Diminuir");
 					conteudoAtividade02.setText(SelecionaAtividades.atividade02);
-					horarioAtividade02
-							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
+					horarioAtividade02.setText(
+							AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade02));
 
 				} else {
 
@@ -273,8 +273,8 @@ public class InterfaceGrafica {
 							+ AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03) + ".");
 					diminuiAt03.setText("Diminuir");
 					conteudoAtividade03.setText(SelecionaAtividades.atividade03);
-					horarioAtividade03
-							.setText(AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
+					horarioAtividade03.setText(
+							AtividadesObrigatorias.atividadesObrigatorias.get(SelecionaAtividades.atividade03));
 
 				} else {
 
@@ -340,18 +340,18 @@ public class InterfaceGrafica {
 		frame.getContentPane().add(atividadeOpcional02);
 
 		JLabel horarioAtividadeOpcional01 = new JLabel(
-				AtividadesAntiOciosidade.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01));
+				AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01));
 		horarioAtividadeOpcional01.setBounds(49, 252, 89, 14);
 		frame.getContentPane().add(horarioAtividadeOpcional01);
 
 		JLabel horarioAtividadeOpcional02 = new JLabel(
-				AtividadesAntiOciosidade.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02));
+				AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02));
 		horarioAtividadeOpcional02.setBounds(299, 252, 89, 14);
 		frame.getContentPane().add(horarioAtividadeOpcional02);
 
 		InterfaceGrafica.opcional01 = "Adicione";
-		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
-			if (AtividadesAntiOciosidade.atividadesAntiOciosidade.get(atividade) == null) {
+		for (String atividade : AtividadesOpcionais.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesOpcionais.atividadesAntiOciosidade.get(atividade) == null) {
 				InterfaceGrafica.opcional01 = "Diminuir";
 			}
 		}
@@ -365,18 +365,17 @@ public class InterfaceGrafica {
 					SelecionaAtividades.selecionaAtividadeOpcional01();
 					InterfaceGrafica.opcional01 = SelecionaAtividades.atividadeOpcional01;
 
-					System.out.println(
-							"\nAtividade opcional gerada com sucesso! " + SelecionaAtividades.atividadeOpcional01
-									+ ", Tempo restante: " + AtividadesAntiOciosidade.atividadesAntiOciosidade
-											.get(SelecionaAtividades.atividadeOpcional01)
-									+ ".");
+					System.out.println("\nAtividade opcional gerada com sucesso! "
+							+ SelecionaAtividades.atividadeOpcional01 + ", Tempo restante: "
+							+ AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01)
+							+ ".");
 					diminuiAtOp01.setText("Diminuir");
 					atividadeOpcional01.setText(SelecionaAtividades.atividadeOpcional01);
-					horarioAtividadeOpcional01.setText(AtividadesAntiOciosidade.atividadesAntiOciosidade
-							.get(SelecionaAtividades.atividadeOpcional01));
+					horarioAtividadeOpcional01.setText(
+							AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01));
 
 				} else {
-					AtividadesAntiOciosidade.atividade = SelecionaAtividades.atividadeOpcional01;
+					AtividadesOpcionais.atividade = SelecionaAtividades.atividadeOpcional01;
 
 					String horas, minutos, segundos;
 					do {
@@ -397,7 +396,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					AtividadesAntiOciosidade.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
+					AtividadesOpcionais.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
 
 				}
 				if (InterfaceGrafica.concluiu) {
@@ -408,8 +407,8 @@ public class InterfaceGrafica {
 					InterfaceGrafica.concluiu = false;
 
 				} else {
-					horarioAtividadeOpcional01.setText(AtividadesAntiOciosidade.atividadesAntiOciosidade
-							.get(SelecionaAtividades.atividadeOpcional01));
+					horarioAtividadeOpcional01.setText(
+							AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01));
 
 				}
 			}
@@ -418,8 +417,8 @@ public class InterfaceGrafica {
 		frame.getContentPane().add(diminuiAtOp01);
 
 		InterfaceGrafica.opcional02 = "Adicione";
-		for (String atividade : AtividadesAntiOciosidade.atividadesAntiOciosidade.keySet()) {
-			if (AtividadesAntiOciosidade.atividadesAntiOciosidade.get(atividade) == null) {
+		for (String atividade : AtividadesOpcionais.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesOpcionais.atividadesAntiOciosidade.get(atividade) == null) {
 				InterfaceGrafica.opcional02 = "Diminuir";
 			}
 		}
@@ -433,18 +432,17 @@ public class InterfaceGrafica {
 					SelecionaAtividades.selecionaAtividadeOpcional02();
 					InterfaceGrafica.opcional02 = SelecionaAtividades.atividadeOpcional02;
 
-					System.out.println(
-							"\nAtividade opcional gerada com sucesso! " + SelecionaAtividades.atividadeOpcional02
-									+ ", Tempo restante: " + AtividadesAntiOciosidade.atividadesAntiOciosidade
-											.get(SelecionaAtividades.atividadeOpcional02)
-									+ ".");
+					System.out.println("\nAtividade opcional gerada com sucesso! "
+							+ SelecionaAtividades.atividadeOpcional02 + ", Tempo restante: "
+							+ AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02)
+							+ ".");
 					diminuiAtOp02.setText("Diminuir");
 					atividadeOpcional02.setText(SelecionaAtividades.atividadeOpcional02);
-					horarioAtividadeOpcional02.setText(AtividadesAntiOciosidade.atividadesAntiOciosidade
-							.get(SelecionaAtividades.atividadeOpcional02));
+					horarioAtividadeOpcional02.setText(
+							AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02));
 
 				} else {
-					AtividadesAntiOciosidade.atividade = SelecionaAtividades.atividadeOpcional02;
+					AtividadesOpcionais.atividade = SelecionaAtividades.atividadeOpcional02;
 
 					String horas, minutos, segundos;
 					do {
@@ -465,7 +463,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					AtividadesAntiOciosidade.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
+					AtividadesOpcionais.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
 
 				}
 				if (InterfaceGrafica.concluiu) {
@@ -476,8 +474,8 @@ public class InterfaceGrafica {
 					InterfaceGrafica.concluiu = false;
 
 				} else {
-					horarioAtividadeOpcional02.setText(AtividadesAntiOciosidade.atividadesAntiOciosidade
-							.get(SelecionaAtividades.atividadeOpcional02));
+					horarioAtividadeOpcional02.setText(
+							AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02));
 
 				}
 			}
@@ -496,10 +494,42 @@ public class InterfaceGrafica {
 		distribuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Entretenimentos.getTodosOsEntretenimentos();
-				TempoEmEntretenimentos.incrementaTempo(TempoEmAtividades.horasAcumuladas,
-						TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
-				
+				if (TempoEmAtividades.horasAcumuladas == 0 && TempoEmAtividades.minutosAcumulados == 0
+						&& TempoEmAtividades.segundosAcumulados == 0) {
+
+					JOptionPane.showMessageDialog(null, "Erro! Você não possui tempo acumulado disponível", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+
+				} else {
+					Entretenimentos.getTodosOsEntretenimentos();
+
+					String horas, minutos, segundos;
+					do {
+						horas = JOptionPane.showInputDialog(null, "Digite as horas acumuladas que deseja distribuir: ",
+								"Digite", JOptionPane.QUESTION_MESSAGE);
+						minutos = JOptionPane.showInputDialog(null,
+								"Digite os minutos acumulados que deseja distribuir: ", "Digite",
+								JOptionPane.QUESTION_MESSAGE);
+						segundos = JOptionPane.showInputDialog(null,
+								"Digite os segundos acumulados que deseja distribuir: ", "Digite",
+								JOptionPane.QUESTION_MESSAGE);
+
+						if (horas == null || minutos == null || segundos == null) {
+							JOptionPane.showMessageDialog(null, "Campos de Horário Inválidos! (Algum é Nulo)", "Erro",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} while (horas == null || minutos == null || segundos == null);
+
+					int horasEmInteiros = Integer.parseInt(horas);
+					int minutosEmInteiros = Integer.parseInt(minutos);
+					int segundosEmInteiros = Integer.parseInt(segundos);
+
+					TempoEmEntretenimentos.incrementaTempo(horasEmInteiros, minutosEmInteiros, segundosEmInteiros);
+
+					variavelTempoAcumulado
+							.setText(TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
+									+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
+				}
 			}
 		});
 		distribuir.setBounds(166, 277, 105, 31);
@@ -509,15 +539,12 @@ public class InterfaceGrafica {
 		diminuir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		diminuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int contador01 = 0, contador02 = 0;
 
-				for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-					JOptionPane.showMessageDialog(null, entretenimento, "Entretenimento " + (contador01 + 1),
-							JOptionPane.INFORMATION_MESSAGE);
-					contador01++;
-				}
+				int contador = 0;
+
+				Entretenimentos.getTodosOsEntretenimentos();
+
 				do {
-					Entretenimentos.getEntretenimento();
 
 					String horas = JOptionPane.showInputDialog(null, "Digite as horas gastas: ", "Digite",
 							JOptionPane.QUESTION_MESSAGE);
@@ -532,9 +559,9 @@ public class InterfaceGrafica {
 
 					TempoEmEntretenimentos.tempoDecorridoEmEntretenimentos(hora, minuto, segundo);
 
-					contador02++;
+					contador++;
 					// LÓGICA CASO NÃO SEJA NENHUM VALOR VALIDO DO ARRAY ENTRETENIMENTOS
-				} while (contador02 < Entretenimentos.entretenimentos.size() - 1);
+				} while (contador < Entretenimentos.entretenimentos.size());
 			}
 		});
 		diminuir.setBounds(166, 336, 103, 31);
@@ -548,10 +575,12 @@ public class InterfaceGrafica {
 		JButton opcoes = new JButton("OPÇÕES");
 		opcoes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Mostrará todos os entretenimentos e tempos disponíveis
-				//Terá a opção do usuário resetar o cronômetro diário
-				//Terá a opção do usuário reiniciar a tela, adicionando novas variaveis ou existentes
-				//Terá a opção de ver o histórico das atividades concluidas e dias sequenciais de realização
+				// Mostrará todos os entretenimentos e tempos disponíveis
+				// Terá a opção do usuário resetar o cronômetro diário
+				// Terá a opção do usuário reiniciar a tela, adicionando novas variaveis ou
+				// existentes
+				// Terá a opção de ver o histórico das atividades concluidas e dias sequenciais
+				// de realização
 				// TODO
 
 			}

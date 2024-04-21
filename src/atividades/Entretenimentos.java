@@ -39,6 +39,9 @@ public class Entretenimentos {
 			System.out.println("\nDigite o " + (i + 1) + " entretenimento: ");
 			String atividade = Entretenimentos.scanner.nextLine();
 			Entretenimentos.entretenimentos.put(atividade, tempos);
+			Entretenimentos.horas.add(i, 0);
+			Entretenimentos.minutos.add(i, 0);
+			Entretenimentos.segundos.add(i, 0);
 		}
 
 	}
@@ -48,7 +51,7 @@ public class Entretenimentos {
 		do {
 			System.out.println("\nDigite o número do entretenimento:");
 			numeroDoEntretenimento = Integer.parseInt(scanner.nextLine());
-			
+
 			if (numeroDoEntretenimento <= 0 || numeroDoEntretenimento > 9) {
 				System.out.println("\nErro! Número de entretenimento inválido!");
 				continue;
@@ -69,11 +72,10 @@ public class Entretenimentos {
 	public static void getTodosOsEntretenimentos() {
 		int contador = 0;
 		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-			for (String tempoDisponivel : Entretenimentos.entretenimentos.values()) {
-				System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento
-						+ ", Tempo Disponível: " + tempoDisponivel);
-				contador++;
-			}
+			System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento + ", Tempo Disponível: "
+					+ Entretenimentos.entretenimentos.get(entretenimento));
+
+			contador++;
 		}
 	}
 

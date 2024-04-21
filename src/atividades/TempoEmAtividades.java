@@ -65,16 +65,9 @@ public class TempoEmAtividades {
 			if (AtividadesObrigatorias.atividade.equals(atividadeAtual)) {
 				igual = true;
 
-				System.out.println("hora: " + hora);
-				System.out.println("minuto: " + minuto);
-				System.out.println("segundo: " + segundo);
-
+				TempoEmAtividades tempoEmAtividades = new TempoEmAtividades();
 				SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-				sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, contador);
-		
-				System.out.println("hora modificada: " + hora);
-				System.out.println("minuto modificada: " + minuto);
-				System.out.println("segundo modificada: " + segundo);
+				sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, contador, tempoEmAtividades);
 				
 				decremento = (AtividadesObrigatorias.horasMutaveis.get(contador) + "H : " +
 				AtividadesObrigatorias.minutosMutaveis.get(contador) + "M : " + AtividadesObrigatorias.segundosMutaveis.get(contador) + "S.");
@@ -113,7 +106,7 @@ public class TempoEmAtividades {
 				TempoEmAtividades.minutosAcumulados += 30;
 				TempoEmAtividades.segundosAcumulados += 59;
 
-			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito difífil")) {
+			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito difícil")) {
 				TempoEmAtividades.horasAcumuladas += 2;
 				TempoEmAtividades.minutosAcumulados += 30;
 				TempoEmAtividades.segundosAcumulados += 59;
@@ -127,12 +120,12 @@ public class TempoEmAtividades {
 			TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasIncrementadas;
 			TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosIncrementados;
 			TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosIncrementados;
-			
-			// INSTRUÇÃO PARA ORGANIZAR AS HORAS MINUTOS E SEGUNDOS
 
+			System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("\nVocê recebeu algum tempo pela conclusão da atividade! "
 					+ TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados + "M : "
 					+ TempoEmAtividades.segundosAcumulados + "S.");
+			System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 
 			InterfaceGrafica.concluiu = true;
 

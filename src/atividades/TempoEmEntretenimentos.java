@@ -43,15 +43,24 @@ public class TempoEmEntretenimentos {
 				if (Entretenimentos.entretenimento.equals(entretenimento)) {
 					igual = true;
 
-					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-					sistemaDeTempo.sistemaDeTempoIncrementado(hora, minuto, segundo);
+					if (hora >= TempoEmAtividades.horasAcumuladas) {
+						hora = TempoEmAtividades.horasAcumuladas;
+					}
+					if (minuto >= TempoEmAtividades.minutosAcumulados) {
+						minuto = TempoEmAtividades.minutosAcumulados;
+					}
+					if (segundo >= TempoEmAtividades.segundosAcumulados) {
+						segundo = TempoEmAtividades.segundosAcumulados;
+					}
 
-					int diminuiHorasAcumuladas = (TempoEmAtividades.horasAcumuladas
-							- sistemaDeTempo.horasIncrementadas);
+					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+					sistemaDeTempo.sistemaDeTempoOrganizado(hora, minuto, segundo);
+
+					int diminuiHorasAcumuladas = (TempoEmAtividades.horasAcumuladas - sistemaDeTempo.horasOrganizadas);
 					int diminuiMinutosAcumulados = (TempoEmAtividades.minutosAcumulados
-							- sistemaDeTempo.minutosIncrementados);
+							- sistemaDeTempo.minutosOrganizados);
 					int diminuiSegundosAcumulados = (TempoEmAtividades.segundosAcumulados
-							- sistemaDeTempo.segundosIncrementados);
+							- sistemaDeTempo.segundosOrganizados);
 
 					if (diminuiHorasAcumuladas < 0) {
 						diminuiHorasAcumuladas = 0;
@@ -69,7 +78,7 @@ public class TempoEmEntretenimentos {
 						}
 
 						int instrucaoDeSomaDeHoras = (Entretenimentos.horas.get(contador)
-								+ sistemaDeTempo.horasIncrementadas);
+								+ sistemaDeTempo.horasOrganizadas);
 
 						Entretenimentos.horas.remove(contador);
 						Entretenimentos.horas.add(contador, instrucaoDeSomaDeHoras);
@@ -80,7 +89,7 @@ public class TempoEmEntretenimentos {
 						}
 
 						int instrucaoDeSomaDeMinutos = (Entretenimentos.minutos.get(contador)
-								+ sistemaDeTempo.minutosIncrementados);
+								+ sistemaDeTempo.minutosOrganizados);
 
 						Entretenimentos.minutos.remove(contador);
 						Entretenimentos.minutos.add(contador, instrucaoDeSomaDeMinutos);
@@ -92,24 +101,24 @@ public class TempoEmEntretenimentos {
 						}
 
 						int instrucaoDeSomaDeSegundos = (Entretenimentos.segundos.get(contador)
-								+ sistemaDeTempo.segundosIncrementados);
+								+ sistemaDeTempo.segundosOrganizados);
 
 						Entretenimentos.segundos.remove(contador);
 						Entretenimentos.segundos.add(contador, instrucaoDeSomaDeSegundos);
 					}
 
-					sistemaDeTempo.sistemaDeTempoIncrementado(Entretenimentos.horas.get(contador),
+					sistemaDeTempo.sistemaDeTempoOrganizado(Entretenimentos.horas.get(contador),
 							Entretenimentos.minutos.get(contador), Entretenimentos.segundos.get(contador));
 
 					Entretenimentos.horas.remove(contador);
-					Entretenimentos.horas.add(contador, sistemaDeTempo.horasIncrementadas);
-					
+					Entretenimentos.horas.add(contador, sistemaDeTempo.horasOrganizadas);
+
 					Entretenimentos.minutos.remove(contador);
-					Entretenimentos.minutos.add(contador, sistemaDeTempo.minutosIncrementados);
-					
+					Entretenimentos.minutos.add(contador, sistemaDeTempo.minutosOrganizados);
+
 					Entretenimentos.segundos.remove(contador);
-					Entretenimentos.segundos.add(contador, sistemaDeTempo.segundosIncrementados);
-					
+					Entretenimentos.segundos.add(contador, sistemaDeTempo.segundosOrganizados);
+
 					atualizaTempo = (Entretenimentos.horas.get(contador) + "H : "
 							+ Entretenimentos.minutos.get(contador) + "M : " + Entretenimentos.segundos.get(contador)
 							+ "S.");
@@ -129,12 +138,14 @@ public class TempoEmEntretenimentos {
 					System.out.println("\nErro! Entretenimento não encontrado.");
 					incrementaTempo(hora, minuto, segundo);
 				}
+
 			}
 			if (igual) {
 				Entretenimentos.entretenimentos.remove(Entretenimentos.entretenimento);
 				Entretenimentos.entretenimentos.put(Entretenimentos.entretenimento, atualizaTempo);
 			}
 		}
+
 	}
 
 	public static void tempoDecorridoEmEntretenimentos(int hora, int minuto, int segundo) {
@@ -142,13 +153,10 @@ public class TempoEmEntretenimentos {
 			throw new IllegalArgumentException(
 					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
 		}
-		if (hora == 0 && minuto == 0 && segundo == 0) {
-			System.out.println("\nTempo inválido!");
-		}
 
 		System.out.println("\nDiminua tempo disponível do entretenimento:");
 		Entretenimentos.getEntretenimento();
-		
+
 		int contador = 0;
 		String condicaoParaAcabar = "";
 		String atualizaTempo = "";

@@ -7,7 +7,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JLabel;
+
 import executar.InterfaceGrafica;
+import executar.SelecionaAtividades;
 import logica_horarios.SistemaDeTempo;
 
 /*
@@ -22,34 +25,63 @@ public class AtividadesOpcionais {
 	static Scanner scanner = new Scanner(System.in);
 	public static Map<String, String> atividadesAntiOciosidade = new HashMap<String, String>();
 	private String[] atividades = new String[] { "Ler um livro", "Fazer uma caminhada", "Jogar um quebra cabeça",
-			"Assista um vídeo info", "Estudar um tema", "Fazer um desenho", "Arrumar o quarto",
-			"Resolva cálculos", "Medite", "Escute um podcast" };
+			"Assista um vídeo info", "Estudar um tema", "Fazer um desenho", "Arrumar o quarto", "Resolva cálculos",
+			"Medite", "Escute um podcast" };
 	private int[] tempos = new int[] { 10, 15, 20, 25, 30 };
 	// LÓGICA ALÉM DOS MINUTOS
-	public static List<Integer> horas = new ArrayList<Integer>();
-	public static List<Integer> minutos = new ArrayList<Integer>();
-	public static List<Integer> segundos = new ArrayList<Integer>();
+	public static int horas[] = new int[2];
+	public static int minutos[] = new int[2];
+	public static int segundos[] = new int[2];
+	public static boolean primeiraAtividade = false;
+	public static boolean segundaAtividade = false;
+	public static AtividadesOpcionais instancia = new AtividadesOpcionais();
 	public static String atividade;
-	public static int contador = 0;
 
-	public static String defineAtividadeAntiOciosidade() {
+	public static void defineAtividadeAntiOciosidade(int posicao) {
 		AtividadesOpcionais atividadesOpcionais = new AtividadesOpcionais();
-		String tempo;
 		int minutos = atividadesOpcionais.randomizaMinutos();
+		String tempo;
 		tempo = (0 + "H : " + atividadesOpcionais.tempos[minutos] + "M : " + 0 + "S.");
-		
-		AtividadesOpcionais.atividadesAntiOciosidade.put(atividadesOpcionais.randomizaAtividadeAntiOciosidade(),
-				tempo);
 
-		AtividadesOpcionais.horas.add(AtividadesOpcionais.contador, 0);
-		AtividadesOpcionais.minutos.add(AtividadesOpcionais.contador, atividadesOpcionais.tempos[minutos]);
-		AtividadesOpcionais.segundos.add(AtividadesOpcionais.contador, 0);
-		
-			//LÓGICA ALÉM DOS MINUTOS
-			//VERIFICA SE JA EXISTE UMA TAREFA COM O MESMO NOME
-		
-		AtividadesOpcionais.contador++;
-		return AtividadesOpcionais.atividade;
+		if (!AtividadesOpcionais.primeiraAtividade) {
+			AtividadesOpcionais.horas[0] = 0;
+			AtividadesOpcionais.minutos[0] = 0;
+			AtividadesOpcionais.segundos[0] = 0;
+
+		} else if (!AtividadesOpcionais.segundaAtividade) {
+			AtividadesOpcionais.horas[1] = 0;
+			AtividadesOpcionais.minutos[1] = 0;
+			AtividadesOpcionais.segundos[1] = 0;
+
+		}
+
+		AtividadesOpcionais.horas[posicao] = 0;
+		AtividadesOpcionais.minutos[posicao] = atividadesOpcionais.tempos[minutos];
+		AtividadesOpcionais.segundos[posicao] = 0;
+
+		boolean igual = true;
+		String atividade = atividadesOpcionais.randomizaAtividadeAntiOciosidade();
+		if (AtividadesOpcionais.atividadesAntiOciosidade.size() > 0) {
+			do {
+				for (String atividades : AtividadesOpcionais.atividadesAntiOciosidade.keySet()) {
+					System.out.println(atividades);
+					if (atividade.equals(atividades)) {
+						atividade = atividadesOpcionais.randomizaAtividadeAntiOciosidade();
+						break;
+					} else {
+						igual = false;
+					}
+				}
+			} while (igual);
+		}
+		AtividadesOpcionais.atividadesAntiOciosidade.put(atividade, tempo);
+		AtividadesOpcionais.atividade = atividade;
+
+		// LÓGICA ALÉM DOS MINUTOS
+		// VERIFICA SE JA EXISTE UMA TAREFA COM O MESMO NOME
+
+		AtividadesOpcionais.primeiraAtividade = true;
+		AtividadesOpcionais.segundaAtividade = true;
 	}
 
 	public String getAtividade() {
@@ -127,54 +159,84 @@ public class AtividadesOpcionais {
 		return AtividadesOpcionais.atividade;
 	}
 
-	public static void tempoDecorridoEmAtividadesAntiOciosidade(Integer hora, Integer minuto, Integer segundo) {
-		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
-			throw new IllegalArgumentException(
-					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
-		}
-		
-		int contador = 0;
-		String atualizaTempo = "";
-		boolean igual = false;
-		for (String atividadeOpcional : AtividadesOpcionais.atividadesAntiOciosidade.keySet()) {
-			if (AtividadesOpcionais.atividade.equals(atividadeOpcional)) {
-				igual = true;
-				
-				AtividadesOpcionais tempoEmAtividadesOpcionais = new AtividadesOpcionais();
-				SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-				sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, contador, tempoEmAtividadesOpcionais);
-				
-				atualizaTempo = (AtividadesOpcionais.horas.get(contador) + "H : "
-						+ AtividadesOpcionais.minutos.get(contador) + "M : " + AtividadesOpcionais.segundos.get(contador)
-						+ "S.");
-				
-				System.out.println("\nTempo passado/decrementado com sucesso.");
-				String condicaoParaAcabar;
-				condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
-				if (AtividadesOpcionais.atividadesAntiOciosidade.get(atividadeOpcional) //ATUALIZAR DEPOIS
-						.equals(condicaoParaAcabar) || AtividadesOpcionais.horas.get(contador) < 0 || AtividadesOpcionais.minutos.get(contador) < 0 || AtividadesOpcionais.segundos.get(contador) < 0) {
-					System.out.println(
-							"\nO tempo restante para concluir a atividade opcional: " + atividadeOpcional + " acabou!");
-					InterfaceGrafica.concluiu = true;
-					
-					//TEMPO ACUMULADO++
-					
-				}
-
-			}
-			contador++;
-		}
-		if(igual) {
-			AtividadesOpcionais.atividadesAntiOciosidade.remove(AtividadesOpcionais.atividade);
-			AtividadesOpcionais.atividadesAntiOciosidade.put(AtividadesOpcionais.atividade, atualizaTempo);
-		}
-
-	}
-
 	public int randomizaMinutos() {
 		Random random = new Random();
 		int tempoRandomizado = random.nextInt(5);
 		return tempoRandomizado;
+	}
+
+	public static void tempoDecorridoEmAtividadesAntiOciosidade(int hora, int minuto, int segundo) {
+		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
+			throw new IllegalArgumentException(
+					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
+		}
+
+		String atualizaTempo = "";
+		boolean igual = false;
+		String condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
+		SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+
+		if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional01)) {
+			igual = true;
+
+			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 0, AtividadesOpcionais.instancia);
+
+			atualizaTempo = (AtividadesOpcionais.horas[0] + "H : " + AtividadesOpcionais.minutos[0] + "M : "
+					+ AtividadesOpcionais.segundos[0] + "S.");
+
+			System.out.println("\nTempo passado/decrementado com sucesso.");
+			System.out.println(atualizaTempo);
+
+		} else if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional02)) {
+			igual = true;
+
+			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 1, AtividadesOpcionais.instancia);
+
+			atualizaTempo = (AtividadesOpcionais.horas[1] + "H : " + AtividadesOpcionais.minutos[1] + "M : "
+					+ AtividadesOpcionais.segundos[1] + "S.");
+
+			System.out.println("\nTempo passado/decrementado com sucesso.");
+			System.out.println(atualizaTempo);
+
+		}
+
+		if (igual) {
+			AtividadesOpcionais.atividadesAntiOciosidade.remove(AtividadesOpcionais.atividade);
+			AtividadesOpcionais.atividadesAntiOciosidade.put(AtividadesOpcionais.atividade, atualizaTempo);
+		}
+
+		for (String atividadeOpcional : AtividadesOpcionais.atividadesAntiOciosidade.keySet()) {
+			if (AtividadesOpcionais.atividadesAntiOciosidade.get(atividadeOpcional).equals(condicaoParaAcabar)) {
+				System.out.println("\nO tempo restante para concluir a atividade opcional: "
+						+ AtividadesOpcionais.atividade + " acabou!");
+
+				System.out.println("\nVocê recebeu +5 minutos adicionais em tempo acumulado!");
+				TempoEmAtividades.minutosAcumulados += 5;
+
+				sistemaDeTempo.sistemaDeTempoOrganizado(TempoEmAtividades.horasAcumuladas,
+						TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
+
+				TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasOrganizadas;
+				TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosOrganizados;
+				TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosOrganizados;
+
+				AtividadesOpcionais.atividadesAntiOciosidade.remove(AtividadesOpcionais.atividade);
+				AtividadesOpcionais.atividade = atividadeOpcional;
+				InterfaceGrafica.concluiu = true;
+
+				if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional01)) {
+					AtividadesOpcionais.primeiraAtividade = false;
+					SelecionaAtividades.atividadeOpcional01 = "";
+
+				} else if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional02)) {
+					AtividadesOpcionais.segundaAtividade = false;
+					SelecionaAtividades.atividadeOpcional02 = "";
+
+				}
+
+				break;
+			}
+		}
 	}
 
 }

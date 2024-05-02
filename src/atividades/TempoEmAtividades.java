@@ -90,36 +90,29 @@ public class TempoEmAtividades {
 			System.out.println("\nAtividade: " + AtividadesObrigatorias.atividade + " concluída com sucesso.");
 
 			if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito fácil")) {
-				TempoEmAtividades.minutosAcumulados += 15;
-				TempoEmAtividades.segundosAcumulados += 59;
+				TempoEmAtividades.minutosAcumulados += 3;
 
 			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("fácil")) {
-				TempoEmAtividades.minutosAcumulados += 20;
-				TempoEmAtividades.segundosAcumulados += 59;
+				TempoEmAtividades.minutosAcumulados += 5;
 
 			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("intermediário")) {
-				TempoEmAtividades.minutosAcumulados += 30;
-				TempoEmAtividades.segundosAcumulados += 59;
+				TempoEmAtividades.minutosAcumulados += 10;
 
 			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("difícil")) {
-				TempoEmAtividades.horasAcumuladas += 1;
-				TempoEmAtividades.minutosAcumulados += 30;
-				TempoEmAtividades.segundosAcumulados += 59;
+				TempoEmAtividades.minutosAcumulados += 15;
 
 			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito difícil")) {
-				TempoEmAtividades.horasAcumuladas += 2;
 				TempoEmAtividades.minutosAcumulados += 30;
-				TempoEmAtividades.segundosAcumulados += 59;
 
 			}
 
 			SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-			sistemaDeTempo.sistemaDeTempoIncrementado(TempoEmAtividades.horasAcumuladas,
+			sistemaDeTempo.sistemaDeTempoOrganizado(TempoEmAtividades.horasAcumuladas,
 					TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
 			
-			TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasIncrementadas;
-			TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosIncrementados;
-			TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosIncrementados;
+			TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasOrganizadas;
+			TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosOrganizados;
+			TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosOrganizados;
 
 			System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("\nVocê recebeu algum tempo pela conclusão da atividade! "

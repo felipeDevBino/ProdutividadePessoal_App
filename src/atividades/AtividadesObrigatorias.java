@@ -73,11 +73,11 @@ public class AtividadesObrigatorias {
 					segundo = Integer.parseInt(Entretenimentos.scanner.nextLine());
 
 					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-					sistemaDeTempo.sistemaDeTempoIncrementado(hora, minuto, segundo);
+					sistemaDeTempo.sistemaDeTempoOrganizado(hora, minuto, segundo);
 
-					hora = sistemaDeTempo.horasIncrementadas;
-					minuto = sistemaDeTempo.minutosIncrementados;
-					segundo = sistemaDeTempo.segundosIncrementados;
+					hora = sistemaDeTempo.horasOrganizadas;
+					minuto = sistemaDeTempo.minutosOrganizados;
+					segundo = sistemaDeTempo.segundosOrganizados;
 
 					if (atividade == null) {
 						System.out.println("\nERRO! Não há nenhuma informação para a atividade!");

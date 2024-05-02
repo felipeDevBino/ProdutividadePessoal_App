@@ -53,11 +53,13 @@ public class SelecionaAtividades {
 	}
 
 	public static void selecionaAtividadeOpcional01() {
-		SelecionaAtividades.atividadeOpcional01 = AtividadesOpcionais.defineAtividadeAntiOciosidade();
+		AtividadesOpcionais.defineAtividadeAntiOciosidade(0);
+		SelecionaAtividades.atividadeOpcional01 = AtividadesOpcionais.atividade;
 	}
 	
 	public static void selecionaAtividadeOpcional02() {
-		SelecionaAtividades.atividadeOpcional02 = AtividadesOpcionais.defineAtividadeAntiOciosidade();	
+		AtividadesOpcionais.defineAtividadeAntiOciosidade(1);	
+		SelecionaAtividades.atividadeOpcional02 = AtividadesOpcionais.atividade;	
 	}
 
 

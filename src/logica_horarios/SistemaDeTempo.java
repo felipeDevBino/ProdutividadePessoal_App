@@ -8,12 +8,12 @@ import atividades.TempoEmEntretenimentos;
 
 public class SistemaDeTempo {
 
-	public int horasIncrementadas;
-	public int minutosIncrementados;
-	public int segundosIncrementados;
+	public int horasOrganizadas;
+	public int minutosOrganizados;
+	public int segundosOrganizados;
 	public static int chaveParaOrganizar = 0;
-	
-	public void sistemaDeTempoIncrementado(int horasEmQuestao, int minutosEmQuestao, int segundosEmQuestao) {
+
+	public void sistemaDeTempoOrganizado(int horasEmQuestao, int minutosEmQuestao, int segundosEmQuestao) {
 
 		int horas = horasEmQuestao;
 		int minutos = 0;
@@ -28,7 +28,7 @@ public class SistemaDeTempo {
 				multiplicador += 1;
 				minutos = 0;
 
-			} else if(minutosEmQuestao != 0 && contador != (multiplicador * 60)) {
+			} else if (minutosEmQuestao != 0 && contador != (multiplicador * 60)) {
 				minutos++;
 			}
 			contador++;
@@ -42,16 +42,15 @@ public class SistemaDeTempo {
 				multiplicador += 1;
 				segundos = 0;
 
-			} else if(segundosEmQuestao != 0 && contador != (multiplicador * 60)) {
-				segundos++;		
+			} else if (segundosEmQuestao != 0 && contador != (multiplicador * 60)) {
+				segundos++;
 			}
 			contador++;
 		} while (contador <= segundosEmQuestao);
 
-		this.horasIncrementadas = horas;
-		this.minutosIncrementados = minutos;
-		this.segundosIncrementados = segundos;
-
+		this.horasOrganizadas = horas;
+		this.minutosOrganizados = minutos;
+		this.segundosOrganizados = segundos;
 	}
 
 	public void tempoDecrementadoEmAtividades(int horasEmQuestao, int minutosEmQuestao, int segundosEmQuestao,
@@ -60,7 +59,7 @@ public class SistemaDeTempo {
 		int minutos = 0;
 		int segundos = 0;
 
-		int contador = 0;
+		int contador = 1;
 		int multiplicador = 1;
 
 		if (minutosEmQuestao > 0) {
@@ -74,10 +73,10 @@ public class SistemaDeTempo {
 					minutos++;
 				}
 				contador++;
-			} while (contador < minutosEmQuestao);
+			} while (contador <= minutosEmQuestao);
 		}
 
-		contador = 0;
+		contador = 1;
 		multiplicador = 1;
 
 		if (segundosEmQuestao > 0) {
@@ -91,7 +90,7 @@ public class SistemaDeTempo {
 					segundos++;
 				}
 				contador++;
-			} while (contador < segundosEmQuestao);
+			} while (contador <= segundosEmQuestao);
 		}
 
 		int decrementaHora, decrementaMinuto, decrementaSegundo;
@@ -99,8 +98,8 @@ public class SistemaDeTempo {
 		boolean instanciaDeAtividadesObrigatorias = obj instanceof TempoEmAtividades;
 		boolean instanciaDeEntretenimentos = obj instanceof TempoEmEntretenimentos;
 		boolean instanciaDeAtividadesOpcionais = obj instanceof AtividadesOpcionais;
-		
-			// SE VOCÊ ESTIVER DECREMENTANDO ATIVIDADES OBRIGATÓRIAS
+
+		// SE VOCÊ ESTIVER DECREMENTANDO ATIVIDADES OBRIGATÓRIAS
 		if (instanciaDeAtividadesObrigatorias) {
 			if (horas > 0) {
 				decrementaHora = (AtividadesObrigatorias.horasMutaveis.get(index) - horas);
@@ -109,7 +108,6 @@ public class SistemaDeTempo {
 				}
 				AtividadesObrigatorias.horasMutaveis.remove(index);
 				AtividadesObrigatorias.horasMutaveis.add(index, decrementaHora);
-				horasEmQuestao = decrementaHora;
 			}
 
 			if (minutos > 0) {
@@ -119,7 +117,6 @@ public class SistemaDeTempo {
 				}
 				AtividadesObrigatorias.minutosMutaveis.remove(index);
 				AtividadesObrigatorias.minutosMutaveis.add(index, decrementaMinuto);
-				minutosEmQuestao = decrementaMinuto;
 			}
 
 			if (segundos > 0) {
@@ -129,11 +126,10 @@ public class SistemaDeTempo {
 				}
 				AtividadesObrigatorias.segundosMutaveis.remove(index);
 				AtividadesObrigatorias.segundosMutaveis.add(index, decrementaSegundo);
-				segundosEmQuestao = decrementaSegundo;
 			}
 
 			// SE VOCÊ ESTIVER DECREMENTANDO ENTRETENIMENTOS
-		}else if(instanciaDeEntretenimentos) {
+		} else if (instanciaDeEntretenimentos) {
 			if (horas > 0) {
 				decrementaHora = (Entretenimentos.horas.get(index) - horas);
 				if (decrementaHora < 0) {
@@ -141,7 +137,6 @@ public class SistemaDeTempo {
 				}
 				Entretenimentos.horas.remove(index);
 				Entretenimentos.horas.add(index, decrementaHora);
-				horasEmQuestao = decrementaHora;
 			}
 
 			if (minutos > 0) {
@@ -151,7 +146,6 @@ public class SistemaDeTempo {
 				}
 				Entretenimentos.minutos.remove(index);
 				Entretenimentos.minutos.add(index, decrementaMinuto);
-				minutosEmQuestao = decrementaMinuto;
 			}
 
 			if (segundos > 0) {
@@ -161,42 +155,36 @@ public class SistemaDeTempo {
 				}
 				Entretenimentos.segundos.remove(index);
 				Entretenimentos.segundos.add(index, decrementaSegundo);
-				segundosEmQuestao = decrementaSegundo;
 			}
-			
+
 			// SE VOCÊ ESTIVER DECREMENTANDO ATIVIDADES OPCIONAIS
-		}else if(instanciaDeAtividadesOpcionais) {
+		} else if (instanciaDeAtividadesOpcionais) {
 			if (horas > 0) {
-				decrementaHora = (AtividadesOpcionais.horas.get(index) - horas);
+				decrementaHora = (AtividadesOpcionais.horas[index] - horas);
 				if (decrementaHora < 0) {
 					decrementaHora = 0;
 				}
-				AtividadesOpcionais.horas.remove(index);
-				AtividadesOpcionais.horas.add(index, decrementaHora);
-				horasEmQuestao = decrementaHora;
+				AtividadesOpcionais.horas[index] = decrementaHora;
 			}
 
 			if (minutos > 0) {
-				decrementaMinuto = (AtividadesOpcionais.minutos.get(index) - minutos);
+				decrementaMinuto = (AtividadesOpcionais.minutos[index] - minutos);
 				if (decrementaMinuto < 0) {
 					decrementaMinuto = 0;
 				}
-				AtividadesOpcionais.minutos.remove(index);
-				AtividadesOpcionais.minutos.add(index, decrementaMinuto);
-				minutosEmQuestao = decrementaMinuto;
+				AtividadesOpcionais.minutos[index] = decrementaMinuto;
 			}
 
 			if (segundos > 0) {
-				decrementaSegundo = (AtividadesOpcionais.segundos.get(index) - segundos);
+				decrementaSegundo = (AtividadesOpcionais.segundos[index] - segundos);
 				if (decrementaSegundo < 0) {
 					decrementaSegundo = 0;
 				}
-				AtividadesOpcionais.segundos.remove(index);
-				AtividadesOpcionais.segundos.add(index, decrementaSegundo);
-				segundosEmQuestao = decrementaSegundo;
+				AtividadesOpcionais.segundos[index] = decrementaSegundo;
 			}
+
 		}
-		
+
 	}
 
 }

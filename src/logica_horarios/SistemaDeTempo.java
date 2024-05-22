@@ -11,7 +11,7 @@ public class SistemaDeTempo {
 	public int horasOrganizadas;
 	public int minutosOrganizados;
 	public int segundosOrganizados;
-	public static int chaveParaOrganizar = 0;
+	protected static int chaveParaOrganizar = 0;
 
 	public void sistemaDeTempoOrganizado(int horasEmQuestao, int minutosEmQuestao, int segundosEmQuestao) {
 
@@ -23,12 +23,13 @@ public class SistemaDeTempo {
 		int multiplicador = 1;
 
 		do {
-			if (contador == (multiplicador * 60)) {
+			boolean instrucao = (contador == (multiplicador * 60)) ? true : false;
+			if (instrucao) {
 				horas += 1;
 				multiplicador += 1;
 				minutos = 0;
 
-			} else if (minutosEmQuestao != 0 && contador != (multiplicador * 60)) {
+			} else if (minutosEmQuestao != 0 && !instrucao) {
 				minutos++;
 			}
 			contador++;
@@ -37,13 +38,21 @@ public class SistemaDeTempo {
 		contador = 1;
 		multiplicador = 1;
 		do {
-			if (contador == (multiplicador * 60)) {
+			boolean instrucao = (contador == (multiplicador * 60)) ? true : false;
+			if (instrucao) {
 				minutos += 1;
 				multiplicador += 1;
 				segundos = 0;
 
-			} else if (segundosEmQuestao != 0 && contador != (multiplicador * 60)) {
+			} else if (segundosEmQuestao > 0 && segundosEmQuestao < (multiplicador * 60)) {
 				segundos++;
+				contador++;
+				continue;
+
+			} else if (!instrucao) {
+				if (segundosEmQuestao > 0) {
+					segundos++;
+				}
 			}
 			contador++;
 		} while (contador <= segundosEmQuestao);
@@ -62,7 +71,7 @@ public class SistemaDeTempo {
 		int contador = 1;
 		int multiplicador = 1;
 
-		if (minutosEmQuestao > 0) {
+		if (minutosEmQuestao > 0 || minutos > 0) {
 			do {
 				if (contador == (multiplicador * 60)) {
 					horas += 1;
@@ -79,7 +88,7 @@ public class SistemaDeTempo {
 		contador = 1;
 		multiplicador = 1;
 
-		if (segundosEmQuestao > 0) {
+		if (segundosEmQuestao > 0 || segundos > 0) {
 			do {
 				if (contador == (multiplicador * 60)) {
 					minutos += 1;
@@ -99,27 +108,38 @@ public class SistemaDeTempo {
 		boolean instanciaDeEntretenimentos = obj instanceof TempoEmEntretenimentos;
 		boolean instanciaDeAtividadesOpcionais = obj instanceof AtividadesOpcionais;
 
+		Complemento decrementadosAdicionais = new Complemento();
+
 		// SE VOCÊ ESTIVER DECREMENTANDO ATIVIDADES OBRIGATÓRIAS
 		if (instanciaDeAtividadesObrigatorias) {
-			if (horas > 0) {
-				decrementaHora = (AtividadesObrigatorias.horasMutaveis.get(index) - horas);
-				if (decrementaHora < 0) {
-					decrementaHora = 0;
-				}
-				AtividadesObrigatorias.horasMutaveis.remove(index);
-				AtividadesObrigatorias.horasMutaveis.add(index, decrementaHora);
-			}
+			decrementadosAdicionais.horariosAdicionaisDecrementados(horas, minutosEmQuestao, segundosEmQuestao, index,
+					obj);
 
-			if (minutos > 0) {
-				decrementaMinuto = (AtividadesObrigatorias.minutosMutaveis.get(index) - minutos);
-				if (decrementaMinuto < 0) {
-					decrementaMinuto = 0;
+			if (!decrementadosAdicionais.confirmacaoDeDecrementoDeHoras()
+					&& AtividadesObrigatorias.horasMutaveis.get(index) > 0) {
+				if (horas > 0) {
+					decrementaHora = (AtividadesObrigatorias.horasMutaveis.get(index) - horas);
+					if (decrementaHora < 0) {
+						decrementaHora = 0;
+					}
+					AtividadesObrigatorias.horasMutaveis.remove(index);
+					AtividadesObrigatorias.horasMutaveis.add(index, decrementaHora);
 				}
-				AtividadesObrigatorias.minutosMutaveis.remove(index);
-				AtividadesObrigatorias.minutosMutaveis.add(index, decrementaMinuto);
 			}
+			if (!decrementadosAdicionais.confirmacaoDeDecrementoDeMinutos()
+					&& AtividadesObrigatorias.minutosMutaveis.get(index) > 0) {
+				if (minutos > 0) {
+					decrementaMinuto = (AtividadesObrigatorias.minutosMutaveis.get(index) - minutos);
+					if (decrementaMinuto < 0) {
+						decrementaMinuto = 0;
+					}
+					AtividadesObrigatorias.minutosMutaveis.remove(index);
+					AtividadesObrigatorias.minutosMutaveis.add(index, decrementaMinuto);
+				}
 
-			if (segundos > 0) {
+			}
+			if (!decrementadosAdicionais.confirmacaoDeDecrementoDeSegundos()
+					&& AtividadesObrigatorias.segundosMutaveis.get(index) > 0) {
 				decrementaSegundo = (AtividadesObrigatorias.segundosMutaveis.get(index) - segundos);
 				if (decrementaSegundo < 0) {
 					decrementaSegundo = 0;
@@ -130,6 +150,9 @@ public class SistemaDeTempo {
 
 			// SE VOCÊ ESTIVER DECREMENTANDO ENTRETENIMENTOS
 		} else if (instanciaDeEntretenimentos) {
+			decrementadosAdicionais.horariosAdicionaisDecrementados(horas, minutosEmQuestao, segundosEmQuestao, index,
+					obj);
+
 			if (horas > 0) {
 				decrementaHora = (Entretenimentos.horas.get(index) - horas);
 				if (decrementaHora < 0) {
@@ -159,6 +182,9 @@ public class SistemaDeTempo {
 
 			// SE VOCÊ ESTIVER DECREMENTANDO ATIVIDADES OPCIONAIS
 		} else if (instanciaDeAtividadesOpcionais) {
+			decrementadosAdicionais.horariosAdicionaisDecrementados(horas, minutosEmQuestao, segundosEmQuestao, index,
+					obj);
+
 			if (horas > 0) {
 				decrementaHora = (AtividadesOpcionais.horas[index] - horas);
 				if (decrementaHora < 0) {

@@ -109,7 +109,7 @@ public class TempoEmAtividades {
 			SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
 			sistemaDeTempo.sistemaDeTempoOrganizado(TempoEmAtividades.horasAcumuladas,
 					TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
-			
+
 			TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasOrganizadas;
 			TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosOrganizados;
 			TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosOrganizados;
@@ -128,7 +128,6 @@ public class TempoEmAtividades {
 	public static void verificaAtividadesPendentes() {
 		if (TempoEmAtividades.atividadesConcluidasNoDia == 0) {
 			System.out.println("\nTodas as atividades foram concluídas! Parabéns por essa conquista!");
-			Start.terminou = true;
 			return;
 		}
 	}

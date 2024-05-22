@@ -13,6 +13,7 @@ import atividades.AtividadesOpcionais;
 import atividades.AtividadesObrigatorias;
 import atividades.Entretenimentos;
 import atividades.TempoEmEntretenimentos;
+import logica_horarios.SistemaDeTempo;
 import atividades.TempoEmAtividades;
 
 import javax.swing.JButton;
@@ -89,7 +90,7 @@ public class InterfaceGrafica {
 		String tempoAcumulado = TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
 				+ "M : " + TempoEmAtividades.segundosAcumulados + "S.";
 		JLabel variavelTempoAcumulado = new JLabel(tempoAcumulado);
-		variavelTempoAcumulado.setBounds(173, 252, 93, 14);
+		variavelTempoAcumulado.setBounds(186, 252, 80, 14);
 		frame.getContentPane().add(variavelTempoAcumulado);
 
 		JLabel conteudoAtividade01 = new JLabel(SelecionaAtividades.atividade01);
@@ -162,10 +163,8 @@ public class InterfaceGrafica {
 					int hora = Integer.parseInt(horas);
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
-
-					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
-						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
-					}
+					
+					TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
@@ -230,9 +229,7 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
-					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
-						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
-					}
+					TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
@@ -294,11 +291,9 @@ public class InterfaceGrafica {
 					int hora = Integer.parseInt(horas);
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
-
-					synchronized (AtividadesObrigatorias.atividadesObrigatorias) {
-						TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
-					}
-
+	
+					TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
+					
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
@@ -495,7 +490,7 @@ public class InterfaceGrafica {
 		// TODO
 		// DATA E HORA
 		JLabel cronometro = new JLabel("cronometro diario");
-		cronometro.setBounds(294, 345, 94, 14);
+		cronometro.setBounds(299, 345, 95, 14);
 		frame.getContentPane().add(cronometro);
 
 		JButton distribuir = new JButton("Distribuir");
@@ -533,6 +528,13 @@ public class InterfaceGrafica {
 					int minutosEmInteiros = Integer.parseInt(minutos);
 					int segundosEmInteiros = Integer.parseInt(segundos);
 
+					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+					sistemaDeTempo.sistemaDeTempoOrganizado(horasEmInteiros, minutosEmInteiros, segundosEmInteiros);
+					
+					horasEmInteiros = sistemaDeTempo.horasOrganizadas;
+					minutosEmInteiros = sistemaDeTempo.minutosOrganizados;
+					segundosEmInteiros = sistemaDeTempo.segundosOrganizados;
+					
 					TempoEmEntretenimentos.incrementaTempo(horasEmInteiros, minutosEmInteiros, segundosEmInteiros);
 
 					variavelTempoAcumulado
@@ -541,7 +543,7 @@ public class InterfaceGrafica {
 				}
 			}
 		});
-		distribuir.setBounds(166, 277, 105, 31);
+		distribuir.setBounds(173, 277, 105, 31);
 		frame.getContentPane().add(distribuir);
 
 		JButton diminuir = new JButton("Diminuir");
@@ -565,6 +567,13 @@ public class InterfaceGrafica {
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
 
+					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+					sistemaDeTempo.sistemaDeTempoOrganizado(hora, minuto, segundo);
+					
+					hora = sistemaDeTempo.horasOrganizadas;
+					minuto = sistemaDeTempo.minutosOrganizados;
+					segundo = sistemaDeTempo.segundosOrganizados;
+					
 					TempoEmEntretenimentos.tempoDecorridoEmEntretenimentos(hora, minuto, segundo);
 
 					contador++;
@@ -572,7 +581,7 @@ public class InterfaceGrafica {
 				} while (contador < Entretenimentos.entretenimentos.size());
 			}
 		});
-		diminuir.setBounds(166, 336, 103, 31);
+		diminuir.setBounds(173, 336, 103, 31);
 		frame.getContentPane().add(diminuir);
 
 		JLabel lblNewLabel_4 = new JLabel("Tempo Acumulado");
@@ -605,20 +614,13 @@ public class InterfaceGrafica {
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		lblNewLabel_3_1.setBounds(221, 319, 0, 31);
 		frame.getContentPane().add(lblNewLabel_3_1);
-
-		JLabel lblNewLabel_3_1_1 = new JLabel("^");
-		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
-		lblNewLabel_3_1_1.setBounds(218, 299, 35, 23);
-		frame.getContentPane().add(lblNewLabel_3_1_1);
-
-		JLabel lblNewLabel_6_1 = new JLabel("ENTRETENIMENTOS");
-		lblNewLabel_6_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblNewLabel_6_1.setBounds(173, 297, 98, 51);
-		frame.getContentPane().add(lblNewLabel_6_1);
-
-		JLabel lblNewLabel_5 = new JLabel("v");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 8));
-		lblNewLabel_5.setBounds(221, 328, 13, 14);
+		
+		JLabel lblNewLabel_5 = new JLabel("Para");
+		lblNewLabel_5.setBounds(211, 308, 35, 14);
 		frame.getContentPane().add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Entretenimentos");
+		lblNewLabel_6.setBounds(173, 319, 105, 14);
+		frame.getContentPane().add(lblNewLabel_6);
 	}
 }

@@ -38,11 +38,11 @@ public class AtividadesObrigatorias {
 			System.out.println("\nDigite a quantidade de atividades obrigatórias que você possui: ");
 			quantidadeDeAtividades = Integer.parseInt(Entretenimentos.scanner.nextLine());
 
-			String condicional = (quantidadeDeAtividades <= 0)
-					? "\nQuantidade inválida! Insira uma quantidade positiva."
+			String condicional = (quantidadeDeAtividades <= 0 || quantidadeDeAtividades < 3)
+					? "\nQuantidade inválida! Insira uma quantidade positiva / pelo menos 3 atividades."
 					: "\nQuantidade registrada com sucesso.";
 			System.out.println(condicional);
-		} while (quantidadeDeAtividades <= 0);
+		} while (quantidadeDeAtividades <= 0 || quantidadeDeAtividades < 3);
 
 		String atividade;
 		int hora = 0;

@@ -56,7 +56,8 @@ public class TempoEmEntretenimentos {
 					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
 					sistemaDeTempo.sistemaDeTempoOrganizado(hora, minuto, segundo);
 
-					int diminuiHorasAcumuladas = (TempoEmAtividades.horasAcumuladas - sistemaDeTempo.horasOrganizadas);
+					int diminuiHorasAcumuladas = (TempoEmAtividades.horasAcumuladas
+							- sistemaDeTempo.horasOrganizadas);
 					int diminuiMinutosAcumulados = (TempoEmAtividades.minutosAcumulados
 							- sistemaDeTempo.minutosOrganizados);
 					int diminuiSegundosAcumulados = (TempoEmAtividades.segundosAcumulados

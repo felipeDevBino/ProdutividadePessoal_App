@@ -9,10 +9,10 @@ import java.util.List;
 public class Entretenimentos {
 
 	static Scanner scanner = new Scanner(System.in);
-	public static Map<String, String> entretenimentos = new HashMap<String, String>();
-	public static List<Integer> horas = new ArrayList<Integer>();
-	public static List<Integer> minutos = new ArrayList<Integer>();
-	public static List<Integer> segundos = new ArrayList<Integer>();
+	public static Map<String, String> entretenimentos = new HashMap<>();
+	public static List<Integer> horas = new ArrayList<>();
+	public static List<Integer> minutos = new ArrayList<>();
+	public static List<Integer> segundos = new ArrayList<>();
 	public static String entretenimento;
 
 	public static void defineOsEntretenimentos() {

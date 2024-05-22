@@ -21,14 +21,13 @@ import java.util.List;
 public class AtividadesObrigatorias {
 
 	static Scanner scanner = new Scanner(System.in);
-	public static Map<String, String> atividadesObrigatorias = new HashMap<String, String>();
-	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<String>();
+	public static Map<String, String> atividadesObrigatorias = new HashMap<>();
+	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<>();
 	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
 			"muito dificil" };
-	public static List<Integer> horasOriginais = new ArrayList<Integer>(), horasMutaveis = new ArrayList<Integer>();
-	public static List<Integer> minutosOriginais = new ArrayList<Integer>(), minutosMutaveis = new ArrayList<Integer>();
-	public static List<Integer> segundosOriginais = new ArrayList<Integer>(),
-			segundosMutaveis = new ArrayList<Integer>();
+	public static List<Integer> horasOriginais = new ArrayList<>(), horasMutaveis = new ArrayList<>();
+	public static List<Integer> minutosOriginais = new ArrayList<>(), minutosMutaveis = new ArrayList<>();
+	public static List<Integer> segundosOriginais = new ArrayList<>(), segundosMutaveis = new ArrayList<>();
 	public static String atividade;
 
 	public static void defineAsAtividades() {
@@ -54,7 +53,7 @@ public class AtividadesObrigatorias {
 				repetida = false;
 				System.out.println("\nDigite a " + (i + 1) + " atividade: ");
 				atividade = Entretenimentos.scanner.nextLine();
-				
+
 				for (String atividadeInserida : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
 					if (atividade.equals(atividadeInserida)) {
 						System.out.println("\nErro! Você já inseriu uma atividade com este nome");

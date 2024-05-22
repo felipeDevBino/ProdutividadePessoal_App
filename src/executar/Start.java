@@ -9,7 +9,6 @@ public class Start {
 
 	// Variáveis para o arquivo (dias consecutivos, etc...)
 	static Scanner scanner = new Scanner(System.in);
-//	public static boolean terminou = false;
 
 	/**
 	 * 
@@ -26,18 +25,16 @@ public class Start {
 		Entretenimentos.defineOsEntretenimentos();
 		System.out.println("\nAtividades Obrigatórias e Entretenimentos registrados com sucesso.");
 
-//		do {			
-			System.out.println("\nSelecione as 3 atividades para concluir em sua interface!");
-			
-			AtividadesObrigatorias.getTodasAsAtividades();
-			
-			SelecionaAtividades.selecionaAtividade01();
-			SelecionaAtividades.selecionaAtividade02();
-			SelecionaAtividades.selecionaAtividade03();
-			
-			InterfaceGrafica.main(args);
-			// TODO
-//		} while (!Start.terminou);
+		System.out.println("\nSelecione as 3 atividades para concluir em sua interface!");
+
+		AtividadesObrigatorias.getTodasAsAtividades();
+
+		SelecionaAtividades.selecionaAtividade01();
+		SelecionaAtividades.selecionaAtividade02();
+		SelecionaAtividades.selecionaAtividade03();
+
+		InterfaceGrafica.main(args);
+
 		System.out.println(
 				"\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 

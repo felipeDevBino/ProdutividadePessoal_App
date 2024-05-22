@@ -1,13 +1,9 @@
 package atividades;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
-
-import javax.swing.JLabel;
 
 import executar.InterfaceGrafica;
 import executar.SelecionaAtividades;
@@ -23,7 +19,7 @@ import logica_horarios.SistemaDeTempo;
 public class AtividadesOpcionais {
 
 	static Scanner scanner = new Scanner(System.in);
-	public static Map<String, String> atividadesAntiOciosidade = new HashMap<String, String>();
+	public static Map<String, String> atividadesAntiOciosidade = new HashMap<>();
 	private String[] atividades = new String[] { "Ler um livro", "Fazer uma caminhada", "Jogar um quebra cabeça",
 			"Assista um vídeo info", "Estudar um tema", "Fazer um desenho", "Arrumar o quarto", "Resolva cálculos",
 			"Medite", "Escute um podcast" };

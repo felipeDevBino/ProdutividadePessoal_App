@@ -1,24 +1,21 @@
 package executar;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Font;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import atividades.AtividadesOpcionais;
 import atividades.AtividadesObrigatorias;
+import atividades.AtividadesOpcionais;
 import atividades.Entretenimentos;
+import atividades.TempoEmAtividades;
 import atividades.TempoEmEntretenimentos;
 import logica_horarios.SistemaDeTempo;
-import atividades.TempoEmAtividades;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class InterfaceGrafica {
 
@@ -163,7 +160,7 @@ public class InterfaceGrafica {
 					int hora = Integer.parseInt(horas);
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
-					
+
 					TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
 
 					if (InterfaceGrafica.concluiu) {
@@ -291,9 +288,9 @@ public class InterfaceGrafica {
 					int hora = Integer.parseInt(horas);
 					int minuto = Integer.parseInt(minutos);
 					int segundo = Integer.parseInt(segundos);
-	
+
 					TempoEmAtividades.tempoDecorridoEmAtividades(hora, minuto, segundo);
-					
+
 					if (InterfaceGrafica.concluiu) {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
@@ -393,22 +390,22 @@ public class InterfaceGrafica {
 
 					InterfaceGrafica.concluiu = false;
 					AtividadesOpcionais.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
-			
+
 					if (InterfaceGrafica.concluiu) {
 						InterfaceGrafica.opcional01 = "Adicione";
 						InterfaceGrafica.concluiu = false;
 						diminuiAtOp01.setText("Adicione");
 						atividadeOpcional01.setText("");
 						horarioAtividadeOpcional01.setText("");
-						variavelTempoAcumulado
-						.setText(TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
-								+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
-						
+						variavelTempoAcumulado.setText(
+								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
+										+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
+
 					} else {
-						horarioAtividadeOpcional01.setText(
-								AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional01));
-						
-					}	
+						horarioAtividadeOpcional01.setText(AtividadesOpcionais.atividadesAntiOciosidade
+								.get(SelecionaAtividades.atividadeOpcional01));
+
+					}
 				}
 			}
 		});
@@ -465,21 +462,21 @@ public class InterfaceGrafica {
 
 					InterfaceGrafica.concluiu = false;
 					AtividadesOpcionais.tempoDecorridoEmAtividadesAntiOciosidade(hora, minuto, segundo);
-					
+
 					if (InterfaceGrafica.concluiu) {
 						InterfaceGrafica.opcional02 = "Adicione";
 						InterfaceGrafica.concluiu = false;
 						diminuiAtOp02.setText("Adicione");
 						atividadeOpcional02.setText("");
 						horarioAtividadeOpcional02.setText("");
-						variavelTempoAcumulado
-						.setText(TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
-								+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
-						
+						variavelTempoAcumulado.setText(
+								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
+										+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
+
 					} else {
-						horarioAtividadeOpcional02.setText(
-								AtividadesOpcionais.atividadesAntiOciosidade.get(SelecionaAtividades.atividadeOpcional02));
-						
+						horarioAtividadeOpcional02.setText(AtividadesOpcionais.atividadesAntiOciosidade
+								.get(SelecionaAtividades.atividadeOpcional02));
+
 					}
 				}
 			}
@@ -530,11 +527,11 @@ public class InterfaceGrafica {
 
 					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
 					sistemaDeTempo.sistemaDeTempoOrganizado(horasEmInteiros, minutosEmInteiros, segundosEmInteiros);
-					
+
 					horasEmInteiros = sistemaDeTempo.horasOrganizadas;
 					minutosEmInteiros = sistemaDeTempo.minutosOrganizados;
 					segundosEmInteiros = sistemaDeTempo.segundosOrganizados;
-					
+
 					TempoEmEntretenimentos.incrementaTempo(horasEmInteiros, minutosEmInteiros, segundosEmInteiros);
 
 					variavelTempoAcumulado
@@ -550,17 +547,15 @@ public class InterfaceGrafica {
 		diminuir.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		diminuir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				int contador = 0;
-
 				Entretenimentos.getTodosOsEntretenimentos();
 
+				String horas, minutos, segundos;
 				do {
-					String horas = JOptionPane.showInputDialog(null, "Digite as horas gastas: ", "Digite",
+					horas = JOptionPane.showInputDialog(null, "Digite as horas gastas: ", "Digite",
 							JOptionPane.QUESTION_MESSAGE);
-					String minutos = JOptionPane.showInputDialog(null, "Digite os minutos gastos: ", "Digite",
+					minutos = JOptionPane.showInputDialog(null, "Digite os minutos gastos: ", "Digite",
 							JOptionPane.QUESTION_MESSAGE);
-					String segundos = JOptionPane.showInputDialog(null, "Digite os segundos gastos: ", "Digite",
+					segundos = JOptionPane.showInputDialog(null, "Digite os segundos gastos: ", "Digite",
 							JOptionPane.QUESTION_MESSAGE);
 
 					int hora = Integer.parseInt(horas);
@@ -569,16 +564,15 @@ public class InterfaceGrafica {
 
 					SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
 					sistemaDeTempo.sistemaDeTempoOrganizado(hora, minuto, segundo);
-					
+
 					hora = sistemaDeTempo.horasOrganizadas;
 					minuto = sistemaDeTempo.minutosOrganizados;
 					segundo = sistemaDeTempo.segundosOrganizados;
-					
+
 					TempoEmEntretenimentos.tempoDecorridoEmEntretenimentos(hora, minuto, segundo);
 
-					contador++;
 					// LÓGICA CASO NÃO SEJA NENHUM VALOR VALIDO DO ARRAY ENTRETENIMENTOS
-				} while (contador < Entretenimentos.entretenimentos.size());
+				} while (horas == null || minutos == null || segundos == null);
 			}
 		});
 		diminuir.setBounds(173, 336, 103, 31);
@@ -614,11 +608,11 @@ public class InterfaceGrafica {
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		lblNewLabel_3_1.setBounds(221, 319, 0, 31);
 		frame.getContentPane().add(lblNewLabel_3_1);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("Para");
 		lblNewLabel_5.setBounds(211, 308, 35, 14);
 		frame.getContentPane().add(lblNewLabel_5);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("Entretenimentos");
 		lblNewLabel_6.setBounds(173, 319, 105, 14);
 		frame.getContentPane().add(lblNewLabel_6);

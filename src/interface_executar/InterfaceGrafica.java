@@ -1,9 +1,11 @@
-package executar;
+package interface_executar;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,12 +21,14 @@ import logica_horarios.SistemaDeTempo;
 
 public class InterfaceGrafica {
 
-	private JFrame frame;
+	private static JFrame frame;
 	static String opcional01;
 	static String opcional02;
 	static String at1, at2, at3;
+	public static JLabel cronometro;
 	public static boolean concluiu = false;
-
+	public static int atividadesOpcionaisConcluidas = 0;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -33,12 +37,23 @@ public class InterfaceGrafica {
 			public void run() {
 				try {
 					InterfaceGrafica window = new InterfaceGrafica();
-					window.frame.setVisible(true);
+					LogicaCronometro cronometro = new LogicaCronometro();
+					InterfaceGrafica.frame.setVisible(true);
+					cronometro.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	public static void cronometroEncerrado() throws InterruptedException {
+		if(!LogicaCronometro.cronometroEncerrou) {
+			Thread.sleep(1000);
+			frame.setVisible(true);
+		}else {
+			frame.setVisible(false);	
+		}
 	}
 
 	/**
@@ -400,6 +415,7 @@ public class InterfaceGrafica {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
 										+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
+						atividadesOpcionaisConcluidas++;
 
 					} else {
 						horarioAtividadeOpcional01.setText(AtividadesOpcionais.atividadesAntiOciosidade
@@ -472,7 +488,8 @@ public class InterfaceGrafica {
 						variavelTempoAcumulado.setText(
 								TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados
 										+ "M : " + TempoEmAtividades.segundosAcumulados + "S.");
-
+						atividadesOpcionaisConcluidas++;
+						
 					} else {
 						horarioAtividadeOpcional02.setText(AtividadesOpcionais.atividadesAntiOciosidade
 								.get(SelecionaAtividades.atividadeOpcional02));
@@ -484,10 +501,9 @@ public class InterfaceGrafica {
 		diminuiAtOp02.setBounds(299, 277, 89, 23);
 		frame.getContentPane().add(diminuiAtOp02);
 
-		// TODO
-		// DATA E HORA
-		JLabel cronometro = new JLabel("cronometro diario");
-		cronometro.setBounds(299, 345, 95, 14);
+		cronometro = new JLabel(LogicaCronometro.estadoAtual());
+		cronometro.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		cronometro.setBounds(299, 345, 106, 14);
 		frame.getContentPane().add(cronometro);
 
 		JButton distribuir = new JButton("Distribuir");
@@ -616,5 +632,10 @@ public class InterfaceGrafica {
 		JLabel lblNewLabel_6 = new JLabel("Entretenimentos");
 		lblNewLabel_6.setBounds(173, 319, 105, 14);
 		frame.getContentPane().add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Cronômetro");
+		lblNewLabel_7.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		lblNewLabel_7.setBounds(310, 320, 116, 14);
+		frame.getContentPane().add(lblNewLabel_7);
 	}
 }

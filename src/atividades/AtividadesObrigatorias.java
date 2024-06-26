@@ -20,10 +20,10 @@ import java.util.List;
 
 public class AtividadesObrigatorias {
 
-	static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	public static Map<String, String> atividadesObrigatorias = new HashMap<>();
 	public static List<String> dificuldadeDeCadaAtividade = new ArrayList<>();
-	protected static String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
+	protected String[] niveisDeDificuldade = new String[] { "muito fácil", "fácil", "intermediário", "difícil",
 			"muito dificil" };
 	public static List<Integer> horasOriginais = new ArrayList<>(), horasMutaveis = new ArrayList<>();
 	public static List<Integer> minutosOriginais = new ArrayList<>(), minutosMutaveis = new ArrayList<>();

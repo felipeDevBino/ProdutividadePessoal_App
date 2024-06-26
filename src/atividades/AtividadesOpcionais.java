@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-import executar.InterfaceGrafica;
-import executar.SelecionaAtividades;
+import interface_executar.InterfaceGrafica;
+import interface_executar.SelecionaAtividades;
 import logica_horarios.SistemaDeTempo;
 
 /*
@@ -18,19 +18,17 @@ import logica_horarios.SistemaDeTempo;
 
 public class AtividadesOpcionais {
 
-	static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	public static Map<String, String> atividadesAntiOciosidade = new HashMap<>();
 	private String[] atividades = new String[] { "Ler um livro", "Fazer uma caminhada", "Jogar um quebra cabeça",
 			"Assista um vídeo info", "Estudar um tema", "Fazer um desenho", "Arrumar o quarto", "Resolva cálculos",
 			"Medite", "Escute um podcast" };
 	private int[] tempos = new int[] { 10, 15, 20, 25, 30 };
-	// LÓGICA ALÉM DOS MINUTOS
 	public static int horas[] = new int[2];
 	public static int minutos[] = new int[2];
 	public static int segundos[] = new int[2];
 	public static boolean primeiraAtividade = false;
 	public static boolean segundaAtividade = false;
-	public static AtividadesOpcionais instancia = new AtividadesOpcionais();
 	public static String atividade;
 
 	public static void defineAtividadeAntiOciosidade(int posicao) {
@@ -171,11 +169,12 @@ public class AtividadesOpcionais {
 		boolean igual = false;
 		String condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
 		SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
+		AtividadesOpcionais instancia = new AtividadesOpcionais();
 
 		if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional01)) {
 			igual = true;
 
-			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 0, AtividadesOpcionais.instancia);
+			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 0, instancia);
 
 			atualizaTempo = (AtividadesOpcionais.horas[0] + "H : " + AtividadesOpcionais.minutos[0] + "M : "
 					+ AtividadesOpcionais.segundos[0] + "S.");
@@ -186,7 +185,7 @@ public class AtividadesOpcionais {
 		} else if (AtividadesOpcionais.atividade.equals(SelecionaAtividades.atividadeOpcional02)) {
 			igual = true;
 
-			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 1, AtividadesOpcionais.instancia);
+			sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, 1, instancia);
 
 			atualizaTempo = (AtividadesOpcionais.horas[1] + "H : " + AtividadesOpcionais.minutos[1] + "M : "
 					+ AtividadesOpcionais.segundos[1] + "S.");

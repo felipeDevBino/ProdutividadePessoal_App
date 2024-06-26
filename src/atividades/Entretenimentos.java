@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Entretenimentos {
 
-	static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	public static Map<String, String> entretenimentos = new HashMap<>();
 	public static List<Integer> horas = new ArrayList<>();
 	public static List<Integer> minutos = new ArrayList<>();

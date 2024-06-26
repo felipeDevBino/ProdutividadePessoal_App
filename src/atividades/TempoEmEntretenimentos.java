@@ -21,7 +21,7 @@ import logica_horarios.SistemaDeTempo;
 
 public class TempoEmEntretenimentos {
 
-	static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 
 	public static void incrementaTempo(int hora, int minuto, int segundo) {
 		if (hora < 0 && minuto < 0 && segundo < 0) {

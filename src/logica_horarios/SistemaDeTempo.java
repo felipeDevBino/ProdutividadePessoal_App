@@ -11,7 +11,6 @@ public class SistemaDeTempo {
 	public int horasOrganizadas;
 	public int minutosOrganizados;
 	public int segundosOrganizados;
-	protected static int chaveParaOrganizar = 0;
 
 	public void sistemaDeTempoOrganizado(int horasEmQuestao, int minutosEmQuestao, int segundosEmQuestao) {
 

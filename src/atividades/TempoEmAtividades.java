@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import executar.InterfaceGrafica;
-import executar.Start;
+import interface_executar.InterfaceGrafica;
+import interface_executar.Start;
 import logica_horarios.SistemaDeTempo;
 
 /*
@@ -18,7 +18,7 @@ import logica_horarios.SistemaDeTempo;
 
 public class TempoEmAtividades {
 
-	static Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	static int atividadesConcluidasNoDia;
 	public static Integer horasAcumuladas = 0;
 	public static Integer minutosAcumulados = 0;

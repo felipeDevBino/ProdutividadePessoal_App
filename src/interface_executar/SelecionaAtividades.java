@@ -1,4 +1,4 @@
-package executar;
+package interface_executar;
 
 import atividades.AtividadesOpcionais;
 import atividades.AtividadesObrigatorias;

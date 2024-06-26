@@ -1,14 +1,16 @@
-package executar;
+package interface_executar;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 import atividades.AtividadesObrigatorias;
 import atividades.Entretenimentos;
+import dias_consecutivos.StatusDiasConsecutivos;
 
 public class Start {
 
-	// Variáveis para o arquivo (dias consecutivos, etc...)
-	static Scanner scanner = new Scanner(System.in);
+	public static int diasConsecutivos = 0;
+	//private static Scanner scanner = new Scanner(System.in);
+	public static boolean programaEncerrado = false;
 
 	/**
 	 * 
@@ -35,6 +37,8 @@ public class Start {
 
 		InterfaceGrafica.main(args);
 
+		StatusDiasConsecutivos.getTodosOsDiasPassados();
+		
 		System.out.println(
 				"\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
 
@@ -42,14 +46,17 @@ public class Start {
 
 	/*
 	 * QUESTIONA O USUÁRIO SE ELE GOSTARIA DE INSERIR A LOCALIZAÇÃO DE UM ARQUIVO
-	 * CONTENDO INFORMAÇÕES PARA UMA LISTA EXISTENTE, O PROGRAMA BUSCARÁ PELA
-	 * SEQUÊNCIA DE CARACTERES DAS ATIVIDADES E ENTRETENIMENTOS E IRÁ VERIFICAR SE A
-	 * FRASE FORMADA/INFORMAÇÃO É VALIDA, INICIANDO O PROGRAMA SEM NECESSITAR DE
-	 * INSERIR TODAS AS ATIVIDADES E HORÁRIOS NOVAMENTE, AO FIM DO PROGRAMA, CASO O
-	 * USUÁRIO TERMINE O PROGRAMA, O PROGRAMA SALVARÁ UM ARQUIVO AS VARIÁVEIS
-	 * ATUAIS, ATIVIDADES SELECIONADAS E TEMPOS ACUMULADOS PARA ENTRETENIMENTOS.
+	 * CONTENDO INFORMAÇÕES DE UMA LISTA EXISTENTE, O PROGRAMA FARÁ UMA VARREDURA NO
+	 * ARQUIVO E IRÁ PREENCHER AS VARIÁVEIS, QUESTIONANDO SOMENTE SOBRE QUAIS AS 3
+	 * ATIVIDADES O USUÁRIO DESEJA EXIBIR NA INTERFACE, O ARQUIVO SERÁ CONSTANTEMENTE 
+	 * ATUALIZADO DURANTE AS ATUALIZAÇÕES QUE O USUÁRIO FARÁ NO PROGRAMA, BEM COMO 
+	 * PARA CADA MINUTO DECREMENTADO DO CRONÔMETRO
 	 */
-	public static void buscaListaEmDiretorios() {
+	private static void buscaListaEmDiretorios() {
+		// TODO
+	}
+	
+	private static void salvaListaEmDiretorios() {
 		// TODO
 	}
 

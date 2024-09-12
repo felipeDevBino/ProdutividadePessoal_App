@@ -1,134 +1,196 @@
 package atividades;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import interface_executar.InterfaceGrafica;
-import interface_executar.Start;
-import logica_horarios.SistemaDeTempo;
+import javax.swing.JLabel;
 
-/*
- * Iniciará com um tempo pré-determinado para cada atividade selecionada pelo próprio usuário
- * e a medida que forem terminadas ou terem seu tempo reduzido (sendo informadas pelo usuário) 
- * o usuário receberá uma quantidade de tempo para entretenimentos dependendo do nível da 
- * atividade e de quanto tempo passou nela.
- *  
- */
+import java.util.ArrayList;
+import gui.InterfaceGrafica;
+import instancias.InstanceManager;
+import gui.funcoesgui.DiminuirTempo;
+import logicadetempo.SistemaDeTempo;
+import utilizacaodetelas.UtilizarTelas;
 
 public class TempoEmAtividades {
 
-	public static Scanner scanner = new Scanner(System.in);
-	static int atividadesConcluidasNoDia;
-	public static Integer horasAcumuladas = 0;
-	public static Integer minutosAcumulados = 0;
-	public static Integer segundosAcumulados = 0;
+	private boolean igual;
+	private String decremento;
+	public int horasAcumuladas;
+	public int minutosAcumulados;
+	public int segundosAcumulados;
+	private int atividadesConcluidasNoDia;
 
-	public static void incrementaTempo() {
+	private AtividadesObrigatorias atividadesObrigatorias = InstanceManager.getAtividadesObrigatorias();;
+	private final String condicaoParaAcabar = "0H: 0M: 0S.";
+	private UtilizarTelas tela;
+	private SistemaDeTempo sistemaDeTempo;
 
+	public TempoEmAtividades() {
+		tela = new UtilizarTelas();
+		sistemaDeTempo = new SistemaDeTempo();
+	}
+
+	private void restaurarTempos(List<String> atividades, List<String> horariosCompletos) {
 		int contador = 0;
-		String restauraHorario;
-		List<String> atividades = new ArrayList<String>();
-		List<String> horariosCompletos = new ArrayList<String>();
 
-		for (String atividade : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
+		for (String atividade : atividadesObrigatorias.atividadesObrigatorias.keySet()) {
 			atividades.add(contador, atividade);
-			restauraHorario = (AtividadesObrigatorias.horasOriginais.get(contador) + "H : "
-					+ AtividadesObrigatorias.minutosOriginais.get(contador) + "M : "
-					+ AtividadesObrigatorias.segundosOriginais.get(contador) + "S.");
-			horariosCompletos.add(contador, restauraHorario);
+			horariosCompletos.add(contador,
+					String.format("%dH: %dM: %dS.", atividadesObrigatorias.horasOriginais.get(contador),
+							atividadesObrigatorias.minutosOriginais.get(contador),
+							atividadesObrigatorias.segundosOriginais.get(contador)));
 			contador++;
 		}
 		contador = 0;
 		for (String atividade : atividades) {
-			AtividadesObrigatorias.atividadesObrigatorias.remove(atividade);
-			AtividadesObrigatorias.atividadesObrigatorias.put(atividade, horariosCompletos.get(contador));
+			atividadesObrigatorias.atividadesObrigatorias.remove(atividade);
+			atividadesObrigatorias.atividadesObrigatorias.put(atividade, horariosCompletos.get(contador));
 			contador++;
 		}
-		System.out.println("\nAtividades reiniciadas com sucesso.");
+		atividadesObrigatorias.restaurarTempoMutavel();
+
+		tela.retornaTextoEmTela("Atividades reiniciadas com sucesso.");
+	}
+
+	public void restaurarTempoOriginal() {
+		List<String> atividades = new ArrayList<String>();
+		List<String> horariosCompletos = new ArrayList<String>();
+
+		restaurarTempos(atividades, horariosCompletos);
 
 	}
 
-	public static void tempoDecorridoEmAtividades(int hora, int minuto, int segundo) {
-		if (hora <= 0 && minuto <= 0 && segundo <= 0) {
-			throw new IllegalArgumentException(
-					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
+	private boolean seOSlotEstaOcupado(InterfaceGrafica gui, JLabel jlabel, int posicao) {
+		if (jlabel.getText() != null) {
+			for (String atividade : atividadesObrigatorias.atividadesObrigatorias.keySet()) {
+				if (jlabel.getText().equals(atividade)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void mostrarTempoRestaurado(InterfaceGrafica gui) {
+		if (seOSlotEstaOcupado(gui, gui.conteudoAtividade01, 0)) {
+			gui.setTempo(atividadesObrigatorias.horasOriginais.get(0), atividadesObrigatorias.minutosOriginais.get(0),
+					atividadesObrigatorias.segundosOriginais.get(0), gui.horarioAtividade01);
+		}
+		if (seOSlotEstaOcupado(gui, gui.conteudoAtividade02, 1)) {
+			gui.setTempo(atividadesObrigatorias.horasOriginais.get(1), atividadesObrigatorias.minutosOriginais.get(1),
+					atividadesObrigatorias.segundosOriginais.get(1), gui.horarioAtividade02);
+		}
+		if (seOSlotEstaOcupado(gui, gui.conteudoAtividade03, 2)) {
+			gui.setTempo(atividadesObrigatorias.horasOriginais.get(2), atividadesObrigatorias.minutosOriginais.get(2),
+					atividadesObrigatorias.segundosOriginais.get(2), gui.horarioAtividade03);
 		}
 
-		int contador = 0;
-		String decremento = "";
-		String condicaoParaAcabar;
-		condicaoParaAcabar = (0 + "H : " + 0 + "M : " + 0 + "S.");
-		boolean igual = false;
+	}
 
-		for (String atividadeAtual : AtividadesObrigatorias.atividadesObrigatorias.keySet()) {
-			if (AtividadesObrigatorias.atividade.equals(atividadeAtual)) {
+	private void decrementarTempo(int horas, int minutos, int segundos) {
+		int contador = 0;
+
+		for (String atividadeAtual : atividadesObrigatorias.atividadesObrigatorias.keySet()) {
+			if (atividadesObrigatorias.getAtividadeSelecionada().equals(atividadeAtual)) {
 				igual = true;
 
 				TempoEmAtividades tempoEmAtividades = new TempoEmAtividades();
-				SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-				sistemaDeTempo.tempoDecrementadoEmAtividades(hora, minuto, segundo, contador, tempoEmAtividades);
-				
-				decremento = (AtividadesObrigatorias.horasMutaveis.get(contador) + "H : " +
-				AtividadesObrigatorias.minutosMutaveis.get(contador) + "M : " + AtividadesObrigatorias.segundosMutaveis.get(contador) + "S.");
-				System.out.println("\nTempo passado/decrementado com sucesso.");
+				sistemaDeTempo.tempoDecrementadoEmAtividades(horas, minutos, segundos, contador, tempoEmAtividades);
+
+				decremento = String.format("%dH: %dM: %dS.", atividadesObrigatorias.horasMutaveis.get(contador),
+						atividadesObrigatorias.minutosMutaveis.get(contador),
+						atividadesObrigatorias.segundosMutaveis.get(contador));
+
+				tela.retornaTextoEmTela("Tempo passado/decrementado com sucesso.");
 				break;
 			}
 			contador++;
 		}
-		if (igual) {
-			AtividadesObrigatorias.atividadesObrigatorias.remove(AtividadesObrigatorias.atividade);
-			AtividadesObrigatorias.atividadesObrigatorias.put(AtividadesObrigatorias.atividade, decremento);
-		}
-
-		if (AtividadesObrigatorias.atividadesObrigatorias.get(AtividadesObrigatorias.atividade)
-				.equals(condicaoParaAcabar)) {
-			TempoEmAtividades.atividadesConcluidasNoDia--;
-			System.out.println(
-					"\nO tempo restante para concluir a atividade: " + AtividadesObrigatorias.atividade + " acabou!");
-
-			System.out.println("\nAtividade: " + AtividadesObrigatorias.atividade + " concluída com sucesso.");
-
-			if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito fácil")) {
-				TempoEmAtividades.minutosAcumulados += 3;
-
-			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("fácil")) {
-				TempoEmAtividades.minutosAcumulados += 5;
-
-			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("intermediário")) {
-				TempoEmAtividades.minutosAcumulados += 10;
-
-			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("difícil")) {
-				TempoEmAtividades.minutosAcumulados += 15;
-
-			} else if (AtividadesObrigatorias.dificuldadeDeCadaAtividade.get(contador).equals("muito difícil")) {
-				TempoEmAtividades.minutosAcumulados += 30;
-
-			}
-
-			SistemaDeTempo sistemaDeTempo = new SistemaDeTempo();
-			sistemaDeTempo.sistemaDeTempoOrganizado(TempoEmAtividades.horasAcumuladas,
-					TempoEmAtividades.minutosAcumulados, TempoEmAtividades.segundosAcumulados);
-
-			TempoEmAtividades.horasAcumuladas = sistemaDeTempo.horasOrganizadas;
-			TempoEmAtividades.minutosAcumulados = sistemaDeTempo.minutosOrganizados;
-			TempoEmAtividades.segundosAcumulados = sistemaDeTempo.segundosOrganizados;
-
-			System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("\nVocê recebeu algum tempo pela conclusão da atividade! "
-					+ TempoEmAtividades.horasAcumuladas + "H : " + TempoEmAtividades.minutosAcumulados + "M : "
-					+ TempoEmAtividades.segundosAcumulados + "S.");
-			System.out.println("\n-------------------------------------------------------------------------------------------------------------------------------------------------------");
-
-			InterfaceGrafica.concluiu = true;
-
-		}
 	}
 
-	public static void verificaAtividadesPendentes() {
-		if (TempoEmAtividades.atividadesConcluidasNoDia == 0) {
-			System.out.println("\nTodas as atividades foram concluídas! Parabéns por essa conquista!");
+	private void concluirAtividade(InterfaceGrafica gui, SelecionaAtividades selecionaAtividades, int posicao) {
+		if (atividadesObrigatorias.atividadesObrigatorias.get(atividadesObrigatorias.getAtividadeSelecionada())
+				.equals(condicaoParaAcabar)) {
+			tela.retornaTextoEmTela(
+					"Atividade: " + atividadesObrigatorias.getAtividadeSelecionada() + " concluída com sucesso.");
+
+			if (atividadesObrigatorias.getDificuldadeDeCadaAtividades().get(posicao).equals("muito fácil")) {
+				minutosAcumulados += 3;
+
+			} else if (atividadesObrigatorias.getDificuldadeDeCadaAtividades().get(posicao).equals("fácil")) {
+				minutosAcumulados += 5;
+
+			} else if (atividadesObrigatorias.getDificuldadeDeCadaAtividades().get(posicao).equals("intermediário")) {
+				minutosAcumulados += 10;
+
+			} else if (atividadesObrigatorias.getDificuldadeDeCadaAtividades().get(posicao).equals("difícil")) {
+				minutosAcumulados += 15;
+
+			} else if (atividadesObrigatorias.getDificuldadeDeCadaAtividades().get(posicao).equals("muito difícil")) {
+				minutosAcumulados += 30;
+
+			}
+			salvarTempoAcumulado();
+			String recebido = String.format("%dH: %dM: %dS.", horasAcumuladas, minutosAcumulados, segundosAcumulados);
+			tela.retornaTextoEmTela(
+					String.format("Você recebeu algum tempo pela conclusão da atividade! %s", recebido));
+			verificarQualAtividadeFoiTerminada(selecionaAtividades);
+			gui.setVariavelTempoAcumulado(recebido);
+		}
+
+	}
+
+	private void salvarTempoAcumulado() {
+		sistemaDeTempo.sistemaDeTempoOrganizado(horasAcumuladas, minutosAcumulados, segundosAcumulados);
+
+		horasAcumuladas = sistemaDeTempo.getHorasOrganizadas();
+		minutosAcumulados = sistemaDeTempo.getMinutosOrganizados();
+		segundosAcumulados = sistemaDeTempo.getSegundosOrganizados();
+
+	}
+
+	public void decrementarTempoEmAtividades(InterfaceGrafica gui, SelecionaAtividades selecionaAtividades, int horas,
+			int minutos, int segundos) {
+		if (horas < 0 || minutos < 0 || segundos < 0 || horas == 0 && minutos == 0 && segundos == 0) {
+			tela.retornaTextoEmTela(
+					"Você precisa digitar ou fornecer um tempo válido! EX: 1 (horas): 50 (minutos): 30 (segundos).");
 			return;
+		}
+
+		int contador = 0;
+
+		decrementarTempo(horas, minutos, segundos);
+
+		if (igual) {
+			atividadesObrigatorias.atividadesObrigatorias.remove(atividadesObrigatorias.getAtividadeSelecionada());
+			atividadesObrigatorias.atividadesObrigatorias.put(atividadesObrigatorias.getAtividadeSelecionada(),
+					decremento);
+		}
+
+		concluirAtividade(gui, selecionaAtividades, contador);
+
+	}
+
+	private void verificarQualAtividadeFoiTerminada(SelecionaAtividades selecionaAtividades) {
+		DiminuirTempo diminuir = InstanceManager.getDiminuirTempo();
+
+		String atividade01 = selecionaAtividades.getAtividade01();
+		String atividade02 = selecionaAtividades.getAtividade02();
+		String atividade03 = selecionaAtividades.getAtividade03();
+
+		if (atividadesObrigatorias.getAtividadeSelecionada().equals(atividade01)) {
+			diminuir.setSeTerminouAtividade01(true);
+		} else if (atividadesObrigatorias.getAtividadeSelecionada().equals(atividade02)) {
+			diminuir.setSeTerminouAtividade02(true);
+		} else if (atividadesObrigatorias.getAtividadeSelecionada().equals(atividade03)) {
+			diminuir.setSeTerminouAtividade03(true);
+		}
+
+	}
+
+	public void verificaAtividadesPendentes() {
+		if (atividadesConcluidasNoDia == 0) {
+			tela.retornaTextoEmTela("Todas as atividades foram concluídas! Parabéns por essa conquista!");
 		}
 	}
 

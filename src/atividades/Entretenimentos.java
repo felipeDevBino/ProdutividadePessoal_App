@@ -1,67 +1,104 @@
 package atividades;
 
 import java.util.Map;
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JButton;
+import utilizacaodetelas.UtilizarTelas;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Entretenimentos {
 
-	public static Scanner scanner = new Scanner(System.in);
-	public static Map<String, String> entretenimentos = new HashMap<>();
-	public static List<Integer> horas = new ArrayList<>();
-	public static List<Integer> minutos = new ArrayList<>();
-	public static List<Integer> segundos = new ArrayList<>();
-	public static String entretenimento;
+	public Map<String, String> entretenimentos;
+	public List<Integer> horas;
+	public List<Integer> minutos;
+	public List<Integer> segundos;
+	private String entretenimento;
+	private UtilizarTelas tela;
+	private int quantidadeDeEntretenimentos;
 
-	public static void defineOsEntretenimentos() {
-		int quantidadeDeEntretenimentos;
+	public Entretenimentos() {
+		tela = new UtilizarTelas();
+		horas = new ArrayList<>();
+		minutos = new ArrayList<>();
+		segundos = new ArrayList<>();
+		entretenimentos = new HashMap<>();
+	}
 
+	private void inserirQuantidadeDeEntretenimentos() {
 		do {
-			System.out.println("\nDigite a quantidade de entretenimentos que você possui (máximo = 9): ");
-			quantidadeDeEntretenimentos = Integer.parseInt(Entretenimentos.scanner.nextLine());
+			quantidadeDeEntretenimentos = tela
+					.insereDadoInteiro("Digite a quantidade de entretenimentos que você possui (máximo = 9):");
 
 			if (quantidadeDeEntretenimentos > 9) {
-				System.out.println("\nQuantidade inválida, excedendo os limites estabelecidos!");
+				tela.retornaTextoEmTela("Quantidade inválida, excedendo os limites estabelecidos!");
 				continue;
 			}
 
-			String condicional = (quantidadeDeEntretenimentos <= 0)
-					? "\nQuantidade inválida! Insira uma quantidade positiva."
-					: "\nQuantidade registrada com sucesso.";
-			System.out.println(condicional);
+			tela.retornaTextoEmTela((quantidadeDeEntretenimentos <= 0)
+					? "Quantidade inválida! Insira uma quantidade positiva."
+					: "Quantidade registrada com sucesso.");
 		} while (quantidadeDeEntretenimentos <= 0 || quantidadeDeEntretenimentos > 9);
 
-		String tempos;
-		tempos = (0 + "H : " + 0 + "M : " + 0 + "S.");
+	}
+
+	private void inserirEntretenimentos(String tempos, int posicao) {
+		String atividade;
+		boolean nula;
+		do {
+			nula = false;
+			atividade = tela.insereDadoDeTexto("Digite o " + (posicao + 1) + " entretenimento:");
+			atividade = atividade.trim();
+
+			if (atividade == null || atividade.isEmpty()) {
+				nula = true;
+				tela.retornaTextoEmTela("Erro! Insira um nome válido para seu entretenimento");
+			}
+		} while (nula);
+		
+		entretenimentos.put(atividade, tempos);
+
+		horas.add(posicao, 0);
+		minutos.add(posicao, 0);
+		segundos.add(posicao, 0);
+
+		tela.retornaTextoEmTela("Entretenimento registrado no sistema com sucesso!");
+
+	}
+
+	public void definirEntretenimentos(JButton botaoDeRegistro) {
+
+		inserirQuantidadeDeEntretenimentos();
+
+		String tempos = String.format("%dH: %dM: %dS.", 0, 0, 0);
+
 		for (int i = 0; i < quantidadeDeEntretenimentos; i++) {
-			System.out.println("\nDigite o " + (i + 1) + " entretenimento: ");
-			String atividade = Entretenimentos.scanner.nextLine();
-			Entretenimentos.entretenimentos.put(atividade, tempos);
-			Entretenimentos.horas.add(i, 0);
-			Entretenimentos.minutos.add(i, 0);
-			Entretenimentos.segundos.add(i, 0);
+			inserirEntretenimentos(tempos, i);
+
+			if (botaoDeRegistro != null) {
+				botaoDeRegistro.setVisible(false);
+			}
 		}
 
 	}
 
-	public static void getEntretenimento() {
+	public void getEntretenimento() {
 		int numeroDoEntretenimento;
 		do {
-			System.out.println("\nDigite o número do entretenimento:");
-			numeroDoEntretenimento = Integer.parseInt(scanner.nextLine());
+			numeroDoEntretenimento = tela.insereDadoInteiro("Digite o número do entretenimento:");
 
 			if (numeroDoEntretenimento <= 0 || numeroDoEntretenimento > 9) {
-				System.out.println("\nErro! Número de entretenimento inválido!");
+				tela.retornaTextoEmTela("Erro! Entretenimento inválido.");
 				continue;
 			}
+
 			int contador = 1;
-			for (String buscaAtividade : Entretenimentos.entretenimentos.keySet()) {
+			for (String buscaAtividade : entretenimentos.keySet()) {
 				if (contador == numeroDoEntretenimento) {
-					System.out.println("\nEntretenimento encontrado! (" + (contador) + "): " + buscaAtividade
-							+ ", Tempo Disponível: " + Entretenimentos.entretenimentos.get(buscaAtividade));
-					Entretenimentos.entretenimento = buscaAtividade;
+					String texto = String.format("Entretenimento encontrado! (%d): %s, Tempo Disponível: %s", contador,
+							buscaAtividade, entretenimentos.get(buscaAtividade));
+					tela.retornaTextoEmTela(texto);
+					entretenimento = buscaAtividade;
 					break;
 				}
 				contador++;
@@ -69,14 +106,17 @@ public class Entretenimentos {
 		} while (numeroDoEntretenimento <= 0 || numeroDoEntretenimento > 9);
 	}
 
-	public static void getTodosOsEntretenimentos() {
+	public void getTodosOsEntretenimentos() {
 		int contador = 0;
-		for (String entretenimento : Entretenimentos.entretenimentos.keySet()) {
-			System.out.println("\nEntretenimento (" + (contador + 1) + "): " + entretenimento + ", Tempo Disponível: "
-					+ Entretenimentos.entretenimentos.get(entretenimento));
-
+		for (String entretenimento : entretenimentos.keySet()) {
+			tela.retornaTextoEmTela(String.format("Entretenimento %d:\n%s, Tempo Disponível: %s", (contador + 1), entretenimento,
+					entretenimentos.get(entretenimento) + "\n"));
 			contador++;
 		}
+	}
+
+	public String getEntretenimentoSelecionado() {
+		return entretenimento;
 	}
 
 }

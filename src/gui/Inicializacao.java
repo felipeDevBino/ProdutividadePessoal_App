@@ -57,25 +57,26 @@ public class Inicializacao {
 		frame.setBounds(100, 100, 476, 470);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		JButton botaoAtividadesObrigatorias = new JButton("Adicionar");
+		frame.setResizable(false);
+		
+		JButton botaoAtividadesObrigatorias = new JButton("ADICIONAR");
 		botaoAtividadesObrigatorias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				atividadesObrigatorias.definirAtividades(botaoAtividadesObrigatorias);
 			}
 		});
 		botaoAtividadesObrigatorias.setFont(new Font("Arial Black", Font.PLAIN, 15));
-		botaoAtividadesObrigatorias.setBounds(279, 159, 142, 56);
+		botaoAtividadesObrigatorias.setBounds(279, 179, 142, 56);
 		frame.getContentPane().add(botaoAtividadesObrigatorias);
 		
 		JLabel lblNewLabel = new JLabel("Atividades obrigatórias:");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 150, 450, 39);
+		lblNewLabel.setBounds(10, 170, 450, 39);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Entretenimentos:");
 		lblNewLabel_1.setFont(new Font("Arial Black", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(35, 233, 178, 14);
+		lblNewLabel_1.setBounds(35, 253, 178, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Bem Vindo(a):");
@@ -91,7 +92,7 @@ public class Inicializacao {
 
 		JLabel lblNewLabel_3 = new JLabel("(ao menos 3)");
 		lblNewLabel_3.setFont(new Font("Arial Black", Font.PLAIN, 18));
-		lblNewLabel_3.setBounds(56, 190, 288, 25);
+		lblNewLabel_3.setBounds(56, 210, 288, 25);
 		frame.getContentPane().add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("User:");
@@ -99,14 +100,14 @@ public class Inicializacao {
 		lblNewLabel_4.setBounds(41, 91, 52, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 
-		JButton botaoEntretenimentos = new JButton("Adicionar");
+		JButton botaoEntretenimentos = new JButton("ADICIONAR");
 		botaoEntretenimentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				entretenimentos.definirEntretenimentos(botaoEntretenimentos);
 			}
 		});
 		botaoEntretenimentos.setFont(new Font("Arial Black", Font.PLAIN, 15));
-		botaoEntretenimentos.setBounds(279, 233, 142, 56);
+		botaoEntretenimentos.setBounds(279, 253, 142, 56);
 		frame.getContentPane().add(botaoEntretenimentos);
 
 		JLabel lblNewLabel_5 = new JLabel("@felipeDevBino");
@@ -115,12 +116,12 @@ public class Inicializacao {
 
 		JLabel lblNewLabel_3_1 = new JLabel("(máximo de 9)");
 		lblNewLabel_3_1.setFont(new Font("Arial Black", Font.PLAIN, 18));
-		lblNewLabel_3_1.setBounds(56, 258, 288, 23);
+		lblNewLabel_3_1.setBounds(56, 278, 288, 23);
 		frame.getContentPane().add(lblNewLabel_3_1);
 
 		JButton btnNewButton_2 = new JButton("SALVAR");
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton_2.setBounds(201, 116, 89, 23);
+		btnNewButton_2.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		btnNewButton_2.setBounds(193, 115, 105, 39);
 		frame.getContentPane().add(btnNewButton_2);
 
 		JButton btnNewButton = new JButton("CONCLUIR");
@@ -139,7 +140,7 @@ public class Inicializacao {
 				}
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton.setFont(new Font("Arial Black", Font.PLAIN, 15));
 		btnNewButton.setBounds(10, 346, 440, 48);
 		frame.getContentPane().add(btnNewButton);
 

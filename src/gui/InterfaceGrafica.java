@@ -90,7 +90,8 @@ public class InterfaceGrafica {
 		frame.setBounds(100, 100, 452, 437);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		frame.setResizable(false);
+		
 		JLabel lblNewLabel = new JLabel("ProdutividadePessoal_App");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 15));
 		lblNewLabel.setBounds(99, 11, 233, 23);
